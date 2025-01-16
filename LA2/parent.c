@@ -97,6 +97,7 @@ int main(int argc, char *argv[]) {
 
         CURRENT_PLAYER = i;
         kill(CPIDs[i], SIGUSR2);
+        pause();
 
         FILE *file2 = fopen(FILENAME2, "w");
         pid_t pid = fork();
