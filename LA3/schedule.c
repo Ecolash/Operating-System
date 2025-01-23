@@ -1,8 +1,19 @@
+/*
+=================================================================
+ASSIGNMENT - 3 : 
+-----------------------------------------------------------------
+Performance Comparison of Some Scheduling Algorithms
+=================================================================
+NAME: Tuhin Mondal
+ROLL: 22CS10087
+-----------------------------------------------------------------
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define INF               1e9
+#define INF               (int)1e9
 #define MAX_BURSTS        1024
 #define FILENAME          "proc.txt"
 
@@ -126,9 +137,9 @@ MinHeap *initH(int capacity) {
 }
 
 void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+    *a = *a ^ *b;
+    *b = *a ^ *b;
+    *a = *a ^ *b;
 }
 
 int compare(int a, int b) {
@@ -182,8 +193,16 @@ int extractMin(MinHeap *heap) {
     return min;
 }
 
+void freeH(MinHeap *heap) {
+    free(heap->data);
+    free(heap);
+}
+
+//=========================================================================================================
+// PROCESS FUNCTIONS
 //=========================================================================================================
 
+// Read process details from the file
 
 Process* getProcs(const char *filename, int *process_count) {
     FILE *file = fopen(filename, "r");
@@ -206,8 +225,8 @@ Process* getProcs(const char *filename, int *process_count) {
             p->running_time += burst;
             p->bursts[p->burst_count] = burst;
             p->burst_types[p->burst_count] = type;
-            p->burst_count++;
             type = (type == 'C') ? 'I' : 'C'; 
+            p->burst_count++;
         }
     }
 
@@ -227,6 +246,8 @@ void printProcesses(const Process processes[], int process_count) {
     }
 }
 
+// Reset process details for the next scheduling algorithm
+
 void resetproc()
 {
     for (int i = 0; i < process_count; i++)
@@ -240,17 +261,22 @@ void resetproc()
     }
 }
 
+// Print process statistics after termination
+
 void print_stats(Process *p, int time)
 {
-    printf("%-6d: ", time);
+    printf("%-8d: ", time);
     printf("Process %-2d exits. ", p->id);
     double pctime = (double)p->turnaround_time / (double)p->running_time * 100.0;
     printf("Turnaround time: %-4d (%.2f %%), ", p->turnaround_time, pctime);
     printf("Wait time: %d\n", p->waiting_time);
 }
 
+// Simulate the scheduling algorithm
+
 void simulate(int time_quantum)
 {
+    resetproc();
     int CURR_RUNNING_PROC = -1;
     int CPU_IDLE_START = 0;
     int CPU_IDLE_TIME = 0;
@@ -263,10 +289,9 @@ void simulate(int time_quantum)
     MinHeap *EVENT_QUEUE = initH(process_count);
     Queue *READY_QUEUE = initQ(process_count);
 
-    resetproc();
     for (int i = 0; i < process_count; i++) insert(EVENT_QUEUE, i);
     #ifdef VERBOSE
-    printf("%-6d: Starting...\n", TIME);
+    printf("%-8d: Starting...\n", TIME);
     #endif
 
     while (EVENT_QUEUE->size > 0)
@@ -284,7 +309,7 @@ void simulate(int time_quantum)
         switch (p->state) {
             case NEW_ARRIVAL:
                 #ifdef VERBOSE
-                printf("%-6d: ", TIME);
+                printf("%-8d: ", TIME);
                 printf("Process %d joins ready queue upon arrival\n", p->id);
                 #endif 
                 enqueue(READY_QUEUE, curr);
@@ -292,7 +317,7 @@ void simulate(int time_quantum)
 
             case IO_COMPLETE:
                 #ifdef VERBOSE
-                printf("%-6d: ", TIME);
+                printf("%-8d: ", TIME);
                 printf("Process %d joins ready queue after IO completion\n", p->id);
                 #endif
                 p->burst_remaining = p->bursts[p->current_burst];
@@ -301,7 +326,7 @@ void simulate(int time_quantum)
 
             case TIMEOUT:
                 #ifdef VERBOSE
-                printf("%-6d: ", TIME);
+                printf("%-8d: ", TIME);
                 printf("Process %d joins ready queue after timeout\n", p->id);
                 #endif 
                 CURR_RUNNING_PROC = -1;
@@ -346,11 +371,11 @@ void simulate(int time_quantum)
                     CPU_IDLE_TIME += TIME - CPU_IDLE_START;
                 }
                 #ifdef VERBOSE
-                printf("%-6d: ", TIME);
+                printf("%-8d: ", TIME);
                 printf("Process %d is scheduled to run for time %d\n", p->id, T);
                 #endif
-                p->event_time = TIME + T;
 
+                p->event_time = TIME + T;
                 p->state = (T == T1)? CPU_BURST : TIMEOUT;
                 switch(p->state)
                 {
@@ -376,8 +401,8 @@ void simulate(int time_quantum)
                     CPU_IDLE_START = TIME;
                     if (TIME > 0) {
                         #ifdef VERBOSE
-                        printf("%-6d: ", TIME);
-                        printf("CPU goes idle\n");
+                        printf("%-8d: ", TIME);
+                        printf("CPU goes idle...\n");
                         #endif
                     }
                 }
@@ -397,11 +422,16 @@ void simulate(int time_quantum)
     CPU_UTILIZATION = (TIME - CPU_IDLE_TIME) / (double)TIME * 100.0;
 
     printf("\n");
+    printf("----------------------------- Scheduling Summary -----------------------------\n\n");
     printf("[+] Average wait time: %.2f\n", AVG_WAITING_TIME);
     printf("[+] Total Turnaround time: %.2f\n", TOTAL_TURNAROUND_TIME);
     printf("[+] CPU idle time: %.2f\n", (double)CPU_IDLE_TIME);
     printf("[+] CPU Utilization: %.2f%%\n", CPU_UTILIZATION);
     printf("\n");
+
+    freeH(EVENT_QUEUE);
+    freeQ(READY_QUEUE);
+    return;
 }
 
 int main() {
