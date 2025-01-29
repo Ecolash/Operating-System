@@ -3,7 +3,7 @@ all: boardgen.c block.c coordinator.c
 	gcc -Wall -o coordinator coordinator.c
 
 run: all
-    ./coordinator
-	
+	./coordinator
+
 clean:
-    -rm -f block coordinator
+	-rm -f block coordinator
