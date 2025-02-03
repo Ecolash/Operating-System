@@ -20,10 +20,12 @@ int solution_mode = 0;
 void send(int FD, char *text)
 {
     int saved_stdout = dup(STDOUT_FILENO);
-    dup2(FD, STDOUT_FILENO);
+    close(STDOUT_FILENO);
+    dup(FD);
     printf("%s", text);
     fflush(stdout);
-    dup2(saved_stdout, STDOUT_FILENO);
+    close(STDOUT_FILENO);
+    dup(saved_stdout);
     close(saved_stdout);
     return;
 }
@@ -54,8 +56,6 @@ void draw_block()
     fflush(stdout);
 }
 
-
-
 int check_row(int row, int digit)
 {
     int conflict = 0;
@@ -76,7 +76,6 @@ int check_row(int row, int digit)
 
 int check_col(int col, int digit)
 {
-
     int conflict = 0;
     char check1[100], check2[100];
     sprintf(check1, "c %d %d %d\n", col, digit, STDOUT);
@@ -148,7 +147,6 @@ void _handle_n_()
     draw_block();
 }
 
-
 void _handle_r_()
 {
     int row, digit, response_fd;
@@ -190,8 +188,9 @@ int main(int argc, char *argv[])
     C2_FD = atoi(argv[7]);
 
     printf("\033[?25l"); // Hide cursor
+    close(STDIN_FILENO);
     printf("Block %d ready...\n", BLK_NO);
-    dup2(STDIN, STDIN_FILENO);
+    dup(STDIN);
 
     char cmd;
     while (1)

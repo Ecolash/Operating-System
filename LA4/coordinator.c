@@ -25,13 +25,15 @@ int pipes[9][2];
 int A[9][9];
 int S[9][9];
 
-void send_to_block(int block, char *text)
+void sendto(int block, char *text)
 {
     int saved_stdout = dup(STDOUT_FILENO);
-    dup2(pipes[block][1], STDOUT_FILENO);
+    close(STDOUT_FILENO);
+    dup(pipes[block][1]);
     printf("%s", text);
     fflush(stdout);
-    dup2(saved_stdout, STDOUT_FILENO);
+    close(STDOUT_FILENO);
+    dup(saved_stdout);
     close(saved_stdout);
     return;
 }
@@ -61,7 +63,7 @@ void _handle_n_()
     _GAME_LIVE_ = 1;
     for (int i = 0; i < 9; i++)
     {
-        send_to_block(i, "n");
+        sendto(i, "n");
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
@@ -72,10 +74,10 @@ void _handle_n_()
 
                 char number[10];
                 sprintf(number, " %d", val);
-                send_to_block(i, number);
+                sendto(i, number);
             }
         }
-        send_to_block(i, "\n");
+        sendto(i, "\n");
     }
 }
 
@@ -91,7 +93,7 @@ void _handle_p_()
 
     char info[30];
     sprintf(info, "p %d %d\n", c, d);
-    send_to_block(b, info);
+    sendto(b, info);
 }
 
 void _handle_s_()
@@ -99,7 +101,7 @@ void _handle_s_()
     if (_GAME_LIVE_ == 0){ printf(RED_BOLD "Error: Start a new game using 'n'\n" RESET); return; }
     for (int i = 0; i < 9; i++)
     {
-        send_to_block(i, "n");
+        sendto(i, "n");
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
@@ -110,17 +112,17 @@ void _handle_s_()
 
                 char number[10];
                 sprintf(number, " %d", val);
-                send_to_block(i, number);
+                sendto(i, number);
             }
         }
-        send_to_block(i, "\n");
+        sendto(i, "\n");
     }
 }
 
 void _handle_q_()
 {
     _STATUS_ = 0;
-    for (int i = 0; i < 9; i++) send_to_block(i, "q\n");
+    for (int i = 0; i < 9; i++) sendto(i, "q\n");
 }
 
 void __init_block__(int n)
@@ -199,7 +201,7 @@ int main()
 
     while (_STATUS_)
     {
-        printf(GREEN_BOLD "fooduko>" RESET " "); 
+        printf(GREEN_BOLD "foodoku>" RESET " "); 
         scanf(" %c", &cmd);
         switch (cmd)
         {
