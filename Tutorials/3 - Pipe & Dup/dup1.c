@@ -22,6 +22,7 @@ int main()
 
     int fd1 = dup(file_fd);
     int fd2 = dup(STDOUT_FILENO);
+
     if (fd1 < 0) { perror("dup"); return 1; }
     if (fd2 < 0) { perror("dup"); return 1; }
     close(file_fd);
