@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     {
         close(STDOUT_FILENO);
         dup(file_fd);
-        close(file_fd);
+        // close(file_fd);
 
         execlp("ls", "ls", "-l", (char *)NULL);
         perror("execlp");
