@@ -1,0 +1,202 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <time.h>
+
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/sem.h>
+
+#define SHM_SIZE 	2000
+#define MIN_SCALE   100000
+
+void semwait(int semid, int posn)
+{
+	struct sembuf pop = {posn, -1, 0};
+	int check = semop(semid, &pop, 1);
+	if (check == -1) {
+		perror("semwait failed!");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void semsignal(int semid, int posn)
+{
+	struct sembuf vop = {posn, 1, 0};
+	int check = semop(semid, &vop, 1);
+	if (check == -1)
+	{
+		perror("semsignal failed!");
+		exit(EXIT_FAILURE);
+	}
+}
+
+char *time_str(int time)
+{
+    int hour = (time / 60) + 11;
+    int minute = time % 60;
+    char *str = (char *)malloc(20 * sizeof(char));
+
+    if (hour >= 12) sprintf(str, "[%02d:%02d pm]", (hour % 12) ? (hour % 12) : 12, minute);
+    else sprintf(str, "[%02d:%02d am]", (hour % 12) ? (hour % 12) : 12, minute);
+    return str;
+}
+
+void cmain(){
+	key_t shm_key = ftok("makefile", 'M');
+	key_t mtx_M_key = ftok("makefile", 'K');
+	key_t mtx_cook_key = ftok("makefile", 'C');
+	key_t mtx_waiter_key = ftok("makefile", 'W');
+
+	int shmid = shmget(shm_key, 2000, 0666);
+	int mtx_M = semget(mtx_M_key, 1, 0666);
+	int mtx_cook = semget(mtx_cook_key, 1, 0666);
+	int mtx_waiter = semget(mtx_waiter_key, 5, 0666);
+
+	int *M = (int *)shmat(shmid, NULL, 0);
+	if (M == (int *)-1) { perror("shmat failed"); exit(EXIT_FAILURE); }
+
+
+	semwait(mtx_M, 0);
+	int time = M[0];
+	pid_t pid = getpid();
+	char cook = (M[4] == pid) ? 'C' : 'D';
+	semsignal(mtx_M, 0);
+
+	char *str = time_str(time);
+	printf("%s", str);
+	if (cook == 'D') printf("  ");
+	printf("Cook %c started\n", cook);
+	fflush(stdout);
+	free(str);
+
+	while (1)
+	{
+		semwait(mtx_cook, 0);
+		semwait(mtx_M, 0);
+
+		int front = M[1100], rear = M[1101];
+		char waiter = M[rear] + 'U';
+		int customer_id = M[rear + 1];
+		int customer_cnt = M[rear + 2];
+		M[1101] = rear + 3;
+		time = M[0];
+		
+		semsignal(mtx_M, 0);
+
+		char *str = time_str(time);
+        printf("%s", str);
+        if (cook == 'D') printf("  ");
+        printf(" Cook %c: Preparing order (Waiter %c, Customer %d, Count %d)\n", cook, waiter, customer_id, customer_cnt);
+        fflush(stdout);
+        free(str);
+
+        int delT = 5 * customer_cnt;
+        usleep(delT * MIN_SCALE);
+
+		semwait(mtx_M, 0);
+		M[0] = time + delT;
+		time = M[0];
+
+		int waiter_id = waiter - 'U';
+		int waiter_idx = 200 * waiter_id;
+		M[waiter_idx + 100] = customer_id;
+		front = M[1100];
+		rear = M[1101];
+
+		semsignal(mtx_M, 0);
+		semsignal(mtx_waiter, waiter_id);
+
+		char *str2 = time_str(time);
+		printf("%s", str2);
+		if (cook == 'D') printf("  ");
+		printf(" Cook %c: Prepared order (Waiter %c, Customer %d, Count %d)\n", cook, waiter, customer_id, customer_cnt);
+		fflush(stdout);
+		free(str2);
+
+		int f1 = (rear > front)? 1 : 0;
+		int f2 = (time > 240)? 1 : 0;
+		if (f1 + f2 == 2) 
+		{
+			char *str3 = time_str(time);
+			printf("%s", str3);
+			if (cook == 'D') printf("  ");
+			printf(" Cook %c: Leaving\n", cook);
+			fflush(stdout);
+			free(str3);
+			break;
+		}
+  }
+  shmdt(M);
+  exit(0);
+}
+
+int main(){
+	key_t shm_key = ftok("makefile", 'M');
+	key_t mtx_M_key = ftok("makefile", 'K');
+	key_t mtx_cook_key = ftok("makefile", 'C');
+	key_t mtx_waiter_key = ftok("makefile", 'W');
+	key_t mtx_customer_key = ftok("makefile", 'U');
+
+	if (shm_key == -1 || mtx_M_key == -1 || mtx_cook_key == -1 || mtx_waiter_key == -1 || mtx_customer_key == -1) {
+		perror("ftok failed");
+		exit(EXIT_FAILURE);
+	}
+
+	int shmid = shmget(shm_key, 2000 * sizeof(int), IPC_CREAT | 0666);
+	int mtx_M = semget(mtx_M_key, 1, IPC_CREAT | 0666);
+	int mtx_cook = semget(mtx_cook_key, 1, IPC_CREAT | 0666);
+	int mtx_waiter = semget(mtx_waiter_key, 5, IPC_CREAT | 0666);
+	int mtx_customer = semget(mtx_customer_key, 200, IPC_CREAT | 0666);
+
+	if (shmid == -1 ) {
+		perror("shmget failed");
+		exit(EXIT_FAILURE);
+	}
+
+	if (mtx_M == -1 || mtx_cook == -1 || mtx_waiter == -1 || mtx_customer == -1) {
+		perror("semget failed");
+		exit(EXIT_FAILURE);
+	}
+
+	int *M = (int *)shmat(shmid, NULL, 0);
+	if (M == (int *)-1) {
+		perror("shmat failed");
+		exit(EXIT_FAILURE);
+	}
+	memset(M, 0, 2000 * sizeof(int));
+	M[1] = 10;
+
+	semctl(mtx_M, 0, SETVAL, 1);
+    semctl(mtx_cook, 0, SETVAL, 0);
+    for (int i = 0; i < 5; i++) semctl(mtx_waiter, i, SETVAL, 0);
+    for (int i = 0; i < 200; i++) semctl(mtx_customer, i, SETVAL, 0);
+
+    int cooks = 2;
+    pid_t cpids[cooks];
+	for (int i = 0; i < cooks; i++)
+	{
+		pid_t pid = fork();
+		if (pid == 0)
+		{
+			cmain();
+			exit(0);
+		}
+		else
+		{
+			semwait(mtx_M, 0);
+			M[4 + i] = pid;
+			cpids[i] = pid;
+			semsignal(mtx_M, 0);
+		}
+	}
+	for (int i = 0; i < cooks; i++) waitpid(cpids[i], NULL, 0);
+	for (int i = 0; i < 5; i++) semsignal(mtx_waiter, i);
+	shmdt(M);
+	exit(0);
+}
+
+

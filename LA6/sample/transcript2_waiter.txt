@@ -1,0 +1,110 @@
+$ ./waiter
+[11:00 am] Waiter U is ready
+[11:00 am] 	Waiter V is ready
+[11:00 am] 		Waiter W is ready
+[11:00 am] 			Waiter X is ready
+[11:00 am] 				Waiter Y is ready
+[11:01 am] 	Waiter V: Placing order for Customer 2 (count = 2)
+[11:01 am] Waiter U: Placing order for Customer 1 (count = 4)
+[11:01 am] 		Waiter W: Placing order for Customer 3 (count = 1)
+[11:01 am] 			Waiter X: Placing order for Customer 4 (count = 4)
+[11:01 am] 				Waiter Y: Placing order for Customer 5 (count = 2)
+[11:02 am] Waiter U: Placing order for Customer 6 (count = 2)
+[11:02 am] 	Waiter V: Placing order for Customer 7 (count = 1)
+[11:10 am] 		Waiter W: Placing order for Customer 8 (count = 1)
+[11:11 am] 	Waiter V: Serving food to Customer 2
+[11:15 am] 			Waiter X: Placing order for Customer 9 (count = 1)
+[11:16 am] 		Waiter W: Serving food to Customer 3
+[11:21 am] Waiter U: Serving food to Customer 1
+[11:22 am] 				Waiter Y: Placing order for Customer 10 (count = 1)
+[11:31 am] 				Waiter Y: Serving food to Customer 5
+[11:36 am] 			Waiter X: Serving food to Customer 4
+[11:41 am] Waiter U: Serving food to Customer 6
+[11:41 am] 	Waiter V: Serving food to Customer 7
+[11:45 am] Waiter U: Placing order for Customer 16 (count = 2)
+[11:46 am] 		Waiter W: Serving food to Customer 8
+[11:46 am] 			Waiter X: Serving food to Customer 9
+[11:51 am] 				Waiter Y: Serving food to Customer 10
+[11:52 am] 	Waiter V: Placing order for Customer 17 (count = 1)
+[11:56 am] Waiter U: Serving food to Customer 16
+[11:57 am] 		Waiter W: Placing order for Customer 18 (count = 2)
+[11:57 am] 	Waiter V: Serving food to Customer 17
+[12:03 pm] 			Waiter X: Placing order for Customer 21 (count = 3)
+[12:07 pm] 		Waiter W: Serving food to Customer 18
+[12:15 pm] 				Waiter Y: Placing order for Customer 23 (count = 1)
+[12:16 pm] Waiter U: Placing order for Customer 24 (count = 3)
+[12:16 pm] 	Waiter V: Placing order for Customer 25 (count = 2)
+[12:18 pm] 			Waiter X: Serving food to Customer 21
+[12:20 pm] 				Waiter Y: Serving food to Customer 23
+[12:23 pm] 		Waiter W: Placing order for Customer 26 (count = 1)
+[12:28 pm] 			Waiter X: Placing order for Customer 27 (count = 2)
+[12:30 pm] 	Waiter V: Serving food to Customer 25
+[12:33 pm] Waiter U: Serving food to Customer 24
+[12:35 pm] 		Waiter W: Serving food to Customer 26
+[12:36 pm] 				Waiter Y: Placing order for Customer 28 (count = 1)
+[12:41 pm] 				Waiter Y: Serving food to Customer 28
+[12:43 pm] 			Waiter X: Serving food to Customer 27
+[12:45 pm] Waiter U: Placing order for Customer 29 (count = 1)
+[12:50 pm] Waiter U: Serving food to Customer 29
+[12:51 pm] 	Waiter V: Placing order for Customer 30 (count = 3)
+[12:53 pm] 		Waiter W: Placing order for Customer 31 (count = 2)
+[12:55 pm] 			Waiter X: Placing order for Customer 32 (count = 1)
+[12:59 pm] 				Waiter Y: Placing order for Customer 33 (count = 2)
+[01:01 pm] Waiter U: Placing order for Customer 34 (count = 1)
+[01:03 pm] 		Waiter W: Serving food to Customer 31
+[01:04 pm] 	Waiter V: Placing order for Customer 35 (count = 1)
+[01:06 pm] 	Waiter V: Serving food to Customer 30
+[01:08 pm] 			Waiter X: Serving food to Customer 32
+[01:13 pm] Waiter U: Serving food to Customer 34
+[01:13 pm] 		Waiter W: Placing order for Customer 38 (count = 1)
+[01:16 pm] 				Waiter Y: Serving food to Customer 33
+[01:18 pm] 	Waiter V: Serving food to Customer 35
+[01:21 pm] 		Waiter W: Serving food to Customer 38
+[01:22 pm] 			Waiter X: Placing order for Customer 39 (count = 1)
+[01:27 pm] 			Waiter X: Serving food to Customer 39
+[01:31 pm] 				Waiter Y: Placing order for Customer 40 (count = 2)
+[01:34 pm] Waiter U: Placing order for Customer 41 (count = 1)
+[01:39 pm] Waiter U: Serving food to Customer 41
+[01:41 pm] 	Waiter V: Placing order for Customer 42 (count = 1)
+[01:41 pm] 				Waiter Y: Serving food to Customer 40
+[01:46 pm] 	Waiter V: Serving food to Customer 42
+[01:47 pm] 		Waiter W: Placing order for Customer 43 (count = 1)
+[01:51 pm] 			Waiter X: Placing order for Customer 44 (count = 3)
+[01:51 pm] 				Waiter Y: Placing order for Customer 45 (count = 1)
+[01:52 pm] 		Waiter W: Serving food to Customer 43
+[01:52 pm] Waiter U: Placing order for Customer 46 (count = 1)
+[01:57 pm] 				Waiter Y: Serving food to Customer 45
+[01:59 pm] 	Waiter V: Placing order for Customer 47 (count = 1)
+[02:02 pm] Waiter U: Serving food to Customer 46
+[02:06 pm] 			Waiter X: Serving food to Customer 44
+[02:07 pm] 	Waiter V: Serving food to Customer 47
+[02:07 pm] 		Waiter W: Placing order for Customer 48 (count = 2)
+[02:07 pm] 			Waiter X: Placing order for Customer 49 (count = 1)
+[02:11 pm] 				Waiter Y: Placing order for Customer 51 (count = 1)
+[02:12 pm] 			Waiter X: Serving food to Customer 49
+[02:17 pm] 		Waiter W: Serving food to Customer 48
+[02:17 pm] 				Waiter Y: Serving food to Customer 51
+[02:19 pm] Waiter U: Placing order for Customer 52 (count = 2)
+[02:19 pm] 	Waiter V: Placing order for Customer 53 (count = 1)
+[02:24 pm] 	Waiter V: Serving food to Customer 53
+[02:27 pm] 		Waiter W: Placing order for Customer 54 (count = 1)
+[02:29 pm] Waiter U: Serving food to Customer 52
+[02:31 pm] 			Waiter X: Placing order for Customer 55 (count = 1)
+[02:32 pm] 		Waiter W: Serving food to Customer 54
+[02:36 pm] 			Waiter X: Serving food to Customer 55
+[02:40 pm] 				Waiter Y: Placing order for Customer 57 (count = 1)
+[02:44 pm] Waiter U: Placing order for Customer 58 (count = 1)
+[02:45 pm] 				Waiter Y: Serving food to Customer 57
+[02:47 pm] 	Waiter V: Placing order for Customer 59 (count = 1)
+[02:49 pm] Waiter U: Serving food to Customer 58
+[02:52 pm] 	Waiter V: Serving food to Customer 59
+[02:53 pm] 		Waiter W: Placing order for Customer 60 (count = 2)
+[03:01 pm] 			Waiter X: Placing order for Customer 61 (count = 1)
+[03:03 pm] 		Waiter W: Serving food to Customer 60
+[03:03 pm] 		Waiter W leaving (no more customer to serve)
+[03:06 pm] 			Waiter X: Serving food to Customer 61
+[03:06 pm] 	Waiter V leaving (no more customer to serve)
+[03:06 pm] Waiter U leaving (no more customer to serve)
+[03:06 pm] 				Waiter Y leaving (no more customer to serve)
+[03:06 pm] 			Waiter X leaving (no more customer to serve)
+$

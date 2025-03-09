@@ -1,0 +1,425 @@
+$ ./cook &
+[11:00 am] 	Cook D is ready
+[11:00 am] Cook C is ready
+$ ./waiter &
+[11:00 am] Waiter U is ready
+[11:00 am] 	Waiter V is ready
+[11:00 am] 		Waiter W is ready
+[11:00 am] 			Waiter X is ready
+[11:00 am] 				Waiter Y is ready
+$ ./customer
+[11:00 am] Customer 1 arrives (count = 4)
+[11:00 am] Customer 2 arrives (count = 2)
+[11:00 am] Customer 3 arrives (count = 1)
+[11:00 am] Customer 4 arrives (count = 4)
+[11:00 am] Customer 5 arrives (count = 2)
+[11:00 am] Customer 6 arrives (count = 2)
+[11:00 am] Customer 7 arrives (count = 1)
+[11:01 am] Waiter U: Placing order for Customer 1 (count = 4)
+[11:01 am] 	Waiter V: Placing order for Customer 2 (count = 2)
+[11:01 am] 	Customer 1: Order placed to Waiter U
+[11:01 am] 	Cook D: Preparing order (Waiter U, Customer 1, Count 4)
+[11:01 am] 	Customer 2: Order placed to Waiter V
+[11:01 am] Cook C: Preparing order (Waiter V, Customer 2, Count 2)
+[11:01 am] 		Waiter W: Placing order for Customer 3 (count = 1)
+[11:01 am] 			Waiter X: Placing order for Customer 4 (count = 4)
+[11:01 am] 	Customer 3: Order placed to Waiter W
+[11:01 am] 	Customer 4: Order placed to Waiter X
+[11:01 am] 				Waiter Y: Placing order for Customer 5 (count = 2)
+[11:01 am] 	Customer 5: Order placed to Waiter Y
+[11:02 am] Waiter U: Placing order for Customer 6 (count = 2)
+[11:02 am] 	Waiter V: Placing order for Customer 7 (count = 1)
+[11:02 am] 	Customer 7: Order placed to Waiter V
+[11:02 am] 	Customer 6: Order placed to Waiter U
+[11:09 am] Customer 8 arrives (count = 1)
+[11:10 am] 		Waiter W: Placing order for Customer 8 (count = 1)
+[11:10 am] 	Customer 8: Order placed to Waiter W
+[11:11 am] Cook C: Prepared order (Waiter V, Customer 2, Count 2)
+[11:11 am] Cook C: Preparing order (Waiter W, Customer 3, Count 1)
+[11:11 am] 	Waiter V: Serving food to Customer 2
+[11:11 am] 		Customer 2 gets food [Waiting time = 11]
+[11:14 am] Customer 9 arrives (count = 1)
+[11:15 am] 			Waiter X: Placing order for Customer 9 (count = 1)
+[11:15 am] 	Customer 9: Order placed to Waiter X
+[11:16 am] Cook C: Prepared order (Waiter W, Customer 3, Count 1)
+[11:16 am] Cook C: Preparing order (Waiter X, Customer 4, Count 4)
+[11:16 am] 		Waiter W: Serving food to Customer 3
+[11:16 am] 		Customer 3 gets food [Waiting time = 16]
+[11:21 am] 	Cook D: Prepared order (Waiter U, Customer 1, Count 4)
+[11:21 am] 	Cook D: Preparing order (Waiter Y, Customer 5, Count 2)
+[11:21 am] Waiter U: Serving food to Customer 1
+[11:21 am] 		Customer 1 gets food [Waiting time = 21]
+[11:21 am] Customer 10 arrives (count = 1)
+[11:22 am] 				Waiter Y: Placing order for Customer 10 (count = 1)
+[11:22 am] 	Customer 10: Order placed to Waiter Y
+[11:28 am] 						Customer 11 leaves (no empty table)
+[11:31 am] 	Cook D: Prepared order (Waiter Y, Customer 5, Count 2)
+[11:31 am] 	Cook D: Preparing order (Waiter U, Customer 6, Count 2)
+[11:31 am] 				Waiter Y: Serving food to Customer 5
+[11:31 am] 		Customer 5 gets food [Waiting time = 31]
+[11:31 am] 						Customer 12 leaves (no empty table)
+[11:32 am] 						Customer 13 leaves (no empty table)
+[11:35 am] 						Customer 14 leaves (no empty table)
+[11:36 am] Cook C: Prepared order (Waiter X, Customer 4, Count 4)
+[11:36 am] Cook C: Preparing order (Waiter V, Customer 7, Count 1)
+[11:36 am] 			Waiter X: Serving food to Customer 4
+[11:36 am] 		Customer 4 gets food [Waiting time = 36]
+[11:37 am] 						Customer 15 leaves (no empty table)
+[11:41 am] 	Cook D: Prepared order (Waiter U, Customer 6, Count 2)
+[11:41 am] 			Customer 2 finishes eating and leaves
+[11:41 am] 	Cook D: Preparing order (Waiter W, Customer 8, Count 1)
+[11:41 am] Waiter U: Serving food to Customer 6
+[11:41 am] 		Customer 6 gets food [Waiting time = 41]
+[11:41 am] Cook C: Prepared order (Waiter V, Customer 7, Count 1)
+[11:41 am] Cook C: Preparing order (Waiter X, Customer 9, Count 1)
+[11:41 am] 	Waiter V: Serving food to Customer 7
+[11:41 am] 		Customer 7 gets food [Waiting time = 41]
+[11:44 am] Customer 16 arrives (count = 2)
+[11:45 am] Waiter U: Placing order for Customer 16 (count = 2)
+[11:45 am] 	Customer 16: Order placed to Waiter U
+[11:46 am] 			Customer 3 finishes eating and leaves
+[11:46 am] 	Cook D: Prepared order (Waiter W, Customer 8, Count 1)
+[11:46 am] 	Cook D: Preparing order (Waiter Y, Customer 10, Count 1)
+[11:46 am] 		Waiter W: Serving food to Customer 8
+[11:46 am] 		Customer 8 gets food [Waiting time = 37]
+[11:46 am] Cook C: Prepared order (Waiter X, Customer 9, Count 1)
+[11:46 am] Cook C: Preparing order (Waiter U, Customer 16, Count 2)
+[11:46 am] 			Waiter X: Serving food to Customer 9
+[11:46 am] 		Customer 9 gets food [Waiting time = 32]
+[11:51 am] 			Customer 1 finishes eating and leaves
+[11:51 am] 	Cook D: Prepared order (Waiter Y, Customer 10, Count 1)
+[11:51 am] 				Waiter Y: Serving food to Customer 10
+[11:51 am] 		Customer 10 gets food [Waiting time = 30]
+[11:51 am] Customer 17 arrives (count = 1)
+[11:52 am] 	Waiter V: Placing order for Customer 17 (count = 1)
+[11:52 am] 	Customer 17: Order placed to Waiter V
+[11:52 am] 	Cook D: Preparing order (Waiter V, Customer 17, Count 1)
+[11:56 am] Cook C: Prepared order (Waiter U, Customer 16, Count 2)
+[11:56 am] Waiter U: Serving food to Customer 16
+[11:56 am] 		Customer 16 gets food [Waiting time = 12]
+[11:56 am] Customer 18 arrives (count = 2)
+[11:57 am] 	Cook D: Prepared order (Waiter V, Customer 17, Count 1)
+[11:57 am] 		Waiter W: Placing order for Customer 18 (count = 2)
+[11:57 am] 	Waiter V: Serving food to Customer 17
+[11:57 am] 	Customer 18: Order placed to Waiter W
+[11:57 am] Cook C: Preparing order (Waiter W, Customer 18, Count 2)
+[11:57 am] 		Customer 17 gets food [Waiting time = 6]
+[11:59 am] 						Customer 19 leaves (no empty table)
+[12:00 pm] 						Customer 20 leaves (no empty table)
+[12:01 pm] 			Customer 5 finishes eating and leaves
+[12:02 pm] Customer 21 arrives (count = 3)
+[12:03 pm] 			Waiter X: Placing order for Customer 21 (count = 3)
+[12:03 pm] 	Customer 21: Order placed to Waiter X
+[12:03 pm] 	Cook D: Preparing order (Waiter X, Customer 21, Count 3)
+[12:05 pm] 						Customer 22 leaves (no empty table)
+[12:06 pm] 			Customer 4 finishes eating and leaves
+[12:07 pm] Cook C: Prepared order (Waiter W, Customer 18, Count 2)
+[12:07 pm] 		Waiter W: Serving food to Customer 18
+[12:07 pm] 		Customer 18 gets food [Waiting time = 11]
+[12:11 pm] 			Customer 6 finishes eating and leaves
+[12:11 pm] 			Customer 7 finishes eating and leaves
+[12:14 pm] Customer 23 arrives (count = 1)
+[12:15 pm] Customer 24 arrives (count = 3)
+[12:15 pm] 				Waiter Y: Placing order for Customer 23 (count = 1)
+[12:15 pm] Cook C: Preparing order (Waiter Y, Customer 23, Count 1)
+[12:15 pm] Customer 25 arrives (count = 2)
+[12:15 pm] 	Customer 23: Order placed to Waiter Y
+[12:16 pm] 			Customer 8 finishes eating and leaves
+[12:16 pm] 			Customer 9 finishes eating and leaves
+[12:16 pm] Waiter U: Placing order for Customer 24 (count = 3)
+[12:16 pm] 	Waiter V: Placing order for Customer 25 (count = 2)
+[12:16 pm] 	Customer 24: Order placed to Waiter U
+[12:16 pm] 	Customer 25: Order placed to Waiter V
+[12:18 pm] 	Cook D: Prepared order (Waiter X, Customer 21, Count 3)
+[12:18 pm] 	Cook D: Preparing order (Waiter U, Customer 24, Count 3)
+[12:18 pm] 			Waiter X: Serving food to Customer 21
+[12:18 pm] 		Customer 21 gets food [Waiting time = 16]
+[12:20 pm] Cook C: Prepared order (Waiter Y, Customer 23, Count 1)
+[12:20 pm] Cook C: Preparing order (Waiter V, Customer 25, Count 2)
+[12:20 pm] 				Waiter Y: Serving food to Customer 23
+[12:20 pm] 		Customer 23 gets food [Waiting time = 6]
+[12:21 pm] 			Customer 10 finishes eating and leaves
+[12:22 pm] Customer 26 arrives (count = 1)
+[12:23 pm] 		Waiter W: Placing order for Customer 26 (count = 1)
+[12:23 pm] 	Customer 26: Order placed to Waiter W
+[12:26 pm] 			Customer 16 finishes eating and leaves
+[12:27 pm] 			Customer 17 finishes eating and leaves
+[12:27 pm] Customer 27 arrives (count = 2)
+[12:28 pm] 			Waiter X: Placing order for Customer 27 (count = 2)
+[12:28 pm] 	Customer 27: Order placed to Waiter X
+[12:30 pm] Cook C: Prepared order (Waiter V, Customer 25, Count 2)
+[12:30 pm] Cook C: Preparing order (Waiter W, Customer 26, Count 1)
+[12:30 pm] 	Waiter V: Serving food to Customer 25
+[12:30 pm] 		Customer 25 gets food [Waiting time = 15]
+[12:33 pm] 	Cook D: Prepared order (Waiter U, Customer 24, Count 3)
+[12:33 pm] 	Cook D: Preparing order (Waiter X, Customer 27, Count 2)
+[12:33 pm] Waiter U: Serving food to Customer 24
+[12:33 pm] 		Customer 24 gets food [Waiting time = 18]
+[12:35 pm] Cook C: Prepared order (Waiter W, Customer 26, Count 1)
+[12:35 pm] 		Waiter W: Serving food to Customer 26
+[12:35 pm] 		Customer 26 gets food [Waiting time = 13]
+[12:35 pm] Customer 28 arrives (count = 1)
+[12:36 pm] 				Waiter Y: Placing order for Customer 28 (count = 1)
+[12:36 pm] 	Customer 28: Order placed to Waiter Y
+[12:36 pm] Cook C: Preparing order (Waiter Y, Customer 28, Count 1)
+[12:37 pm] 			Customer 18 finishes eating and leaves
+[12:41 pm] Cook C: Prepared order (Waiter Y, Customer 28, Count 1)
+[12:41 pm] 				Waiter Y: Serving food to Customer 28
+[12:41 pm] 		Customer 28 gets food [Waiting time = 6]
+[12:43 pm] 	Cook D: Prepared order (Waiter X, Customer 27, Count 2)
+[12:43 pm] 			Waiter X: Serving food to Customer 27
+[12:43 pm] 		Customer 27 gets food [Waiting time = 16]
+[12:44 pm] Customer 29 arrives (count = 1)
+[12:45 pm] Waiter U: Placing order for Customer 29 (count = 1)
+[12:45 pm] 	Customer 29: Order placed to Waiter U
+[12:45 pm] Cook C: Preparing order (Waiter U, Customer 29, Count 1)
+[12:48 pm] 			Customer 21 finishes eating and leaves
+[12:50 pm] 			Customer 23 finishes eating and leaves
+[12:50 pm] Customer 30 arrives (count = 3)
+[12:50 pm] Cook C: Prepared order (Waiter U, Customer 29, Count 1)
+[12:50 pm] Waiter U: Serving food to Customer 29
+[12:50 pm] 		Customer 29 gets food [Waiting time = 6]
+[12:51 pm] 	Waiter V: Placing order for Customer 30 (count = 3)
+[12:51 pm] 	Customer 30: Order placed to Waiter V
+[12:51 pm] 	Cook D: Preparing order (Waiter V, Customer 30, Count 3)
+[12:52 pm] Customer 31 arrives (count = 2)
+[12:53 pm] 		Waiter W: Placing order for Customer 31 (count = 2)
+[12:53 pm] 	Customer 31: Order placed to Waiter W
+[12:53 pm] Cook C: Preparing order (Waiter W, Customer 31, Count 2)
+[12:54 pm] Customer 32 arrives (count = 1)
+[12:55 pm] 			Waiter X: Placing order for Customer 32 (count = 1)
+[12:55 pm] 	Customer 32: Order placed to Waiter X
+[12:58 pm] Customer 33 arrives (count = 2)
+[12:59 pm] 				Waiter Y: Placing order for Customer 33 (count = 2)
+[12:59 pm] 	Customer 33: Order placed to Waiter Y
+[01:00 pm] 			Customer 25 finishes eating and leaves
+[01:00 pm] Customer 34 arrives (count = 1)
+[01:01 pm] Waiter U: Placing order for Customer 34 (count = 1)
+[01:01 pm] 	Customer 34: Order placed to Waiter U
+[01:03 pm] 			Customer 24 finishes eating and leaves
+[01:03 pm] Cook C: Prepared order (Waiter W, Customer 31, Count 2)
+[01:03 pm] Cook C: Preparing order (Waiter X, Customer 32, Count 1)
+[01:03 pm] 		Waiter W: Serving food to Customer 31
+[01:03 pm] 		Customer 31 gets food [Waiting time = 11]
+[01:03 pm] Customer 35 arrives (count = 1)
+[01:03 pm] 						Customer 36 leaves (no empty table)
+[01:03 pm] 						Customer 37 leaves (no empty table)
+[01:04 pm] 	Waiter V: Placing order for Customer 35 (count = 1)
+[01:04 pm] 	Customer 35: Order placed to Waiter V
+[01:05 pm] 			Customer 26 finishes eating and leaves
+[01:06 pm] 	Cook D: Prepared order (Waiter V, Customer 30, Count 3)
+[01:06 pm] 	Cook D: Preparing order (Waiter Y, Customer 33, Count 2)
+[01:06 pm] 	Waiter V: Serving food to Customer 30
+[01:06 pm] 		Customer 30 gets food [Waiting time = 16]
+[01:08 pm] Cook C: Prepared order (Waiter X, Customer 32, Count 1)
+[01:08 pm] Cook C: Preparing order (Waiter U, Customer 34, Count 1)
+[01:08 pm] 			Waiter X: Serving food to Customer 32
+[01:08 pm] 		Customer 32 gets food [Waiting time = 14]
+[01:11 pm] 			Customer 28 finishes eating and leaves
+[01:12 pm] Customer 38 arrives (count = 1)
+[01:13 pm] 			Customer 27 finishes eating and leaves
+[01:13 pm] Cook C: Prepared order (Waiter U, Customer 34, Count 1)
+[01:13 pm] Cook C: Preparing order (Waiter V, Customer 35, Count 1)
+[01:13 pm] Waiter U: Serving food to Customer 34
+[01:13 pm] 		Customer 34 gets food [Waiting time = 13]
+[01:13 pm] 		Waiter W: Placing order for Customer 38 (count = 1)
+[01:13 pm] 	Customer 38: Order placed to Waiter W
+[01:16 pm] 	Cook D: Prepared order (Waiter Y, Customer 33, Count 2)
+[01:16 pm] 	Cook D: Preparing order (Waiter W, Customer 38, Count 1)
+[01:16 pm] 				Waiter Y: Serving food to Customer 33
+[01:16 pm] 		Customer 33 gets food [Waiting time = 18]
+[01:18 pm] Cook C: Prepared order (Waiter V, Customer 35, Count 1)
+[01:18 pm] 	Waiter V: Serving food to Customer 35
+[01:18 pm] 		Customer 35 gets food [Waiting time = 15]
+[01:20 pm] 			Customer 29 finishes eating and leaves
+[01:21 pm] 	Cook D: Prepared order (Waiter W, Customer 38, Count 1)
+[01:21 pm] 		Waiter W: Serving food to Customer 38
+[01:21 pm] 		Customer 38 gets food [Waiting time = 9]
+[01:21 pm] Customer 39 arrives (count = 1)
+[01:22 pm] 			Waiter X: Placing order for Customer 39 (count = 1)
+[01:22 pm] 	Customer 39: Order placed to Waiter X
+[01:22 pm] Cook C: Preparing order (Waiter X, Customer 39, Count 1)
+[01:27 pm] Cook C: Prepared order (Waiter X, Customer 39, Count 1)
+[01:27 pm] 			Waiter X: Serving food to Customer 39
+[01:27 pm] 		Customer 39 gets food [Waiting time = 6]
+[01:30 pm] Customer 40 arrives (count = 2)
+[01:31 pm] 				Waiter Y: Placing order for Customer 40 (count = 2)
+[01:31 pm] 	Customer 40: Order placed to Waiter Y
+[01:31 pm] 	Cook D: Preparing order (Waiter Y, Customer 40, Count 2)
+[01:33 pm] 			Customer 31 finishes eating and leaves
+[01:33 pm] Customer 41 arrives (count = 1)
+[01:34 pm] Waiter U: Placing order for Customer 41 (count = 1)
+[01:34 pm] 	Customer 41: Order placed to Waiter U
+[01:34 pm] Cook C: Preparing order (Waiter U, Customer 41, Count 1)
+[01:36 pm] 			Customer 30 finishes eating and leaves
+[01:38 pm] 			Customer 32 finishes eating and leaves
+[01:39 pm] Cook C: Prepared order (Waiter U, Customer 41, Count 1)
+[01:39 pm] Waiter U: Serving food to Customer 41
+[01:39 pm] 		Customer 41 gets food [Waiting time = 6]
+[01:40 pm] Customer 42 arrives (count = 1)
+[01:41 pm] 	Cook D: Prepared order (Waiter Y, Customer 40, Count 2)
+[01:41 pm] 				Waiter Y: Serving food to Customer 40
+[01:41 pm] 		Customer 40 gets food [Waiting time = 11]
+[01:41 pm] 	Waiter V: Placing order for Customer 42 (count = 1)
+[01:41 pm] 	Customer 42: Order placed to Waiter V
+[01:41 pm] Cook C: Preparing order (Waiter V, Customer 42, Count 1)
+[01:43 pm] 			Customer 34 finishes eating and leaves
+[01:46 pm] 			Customer 33 finishes eating and leaves
+[01:46 pm] Customer 43 arrives (count = 1)
+[01:46 pm] Cook C: Prepared order (Waiter V, Customer 42, Count 1)
+[01:46 pm] 	Waiter V: Serving food to Customer 42
+[01:46 pm] 		Customer 42 gets food [Waiting time = 6]
+[01:47 pm] 		Waiter W: Placing order for Customer 43 (count = 1)
+[01:47 pm] 	Customer 43: Order placed to Waiter W
+[01:47 pm] 	Cook D: Preparing order (Waiter W, Customer 43, Count 1)
+[01:48 pm] 			Customer 35 finishes eating and leaves
+[01:50 pm] Customer 44 arrives (count = 3)
+[01:50 pm] Customer 45 arrives (count = 1)
+[01:51 pm] 			Customer 38 finishes eating and leaves
+[01:51 pm] 			Waiter X: Placing order for Customer 44 (count = 3)
+[01:51 pm] 	Customer 44: Order placed to Waiter X
+[01:51 pm] Cook C: Preparing order (Waiter X, Customer 44, Count 3)
+[01:51 pm] 				Waiter Y: Placing order for Customer 45 (count = 1)
+[01:51 pm] 	Customer 45: Order placed to Waiter Y
+[01:51 pm] Customer 46 arrives (count = 1)
+[01:52 pm] 	Cook D: Prepared order (Waiter W, Customer 43, Count 1)
+[01:52 pm] 	Cook D: Preparing order (Waiter Y, Customer 45, Count 1)
+[01:52 pm] 		Waiter W: Serving food to Customer 43
+[01:52 pm] 		Customer 43 gets food [Waiting time = 6]
+[01:52 pm] Waiter U: Placing order for Customer 46 (count = 1)
+[01:52 pm] 	Customer 46: Order placed to Waiter U
+[01:57 pm] 			Customer 39 finishes eating and leaves
+[01:57 pm] 	Cook D: Prepared order (Waiter Y, Customer 45, Count 1)
+[01:57 pm] 	Cook D: Preparing order (Waiter U, Customer 46, Count 1)
+[01:57 pm] 				Waiter Y: Serving food to Customer 45
+[01:57 pm] 		Customer 45 gets food [Waiting time = 7]
+[01:58 pm] Customer 47 arrives (count = 1)
+[01:59 pm] 	Waiter V: Placing order for Customer 47 (count = 1)
+[01:59 pm] 	Customer 47: Order placed to Waiter V
+[02:02 pm] 	Cook D: Prepared order (Waiter U, Customer 46, Count 1)
+[02:02 pm] 	Cook D: Preparing order (Waiter V, Customer 47, Count 1)
+[02:02 pm] Waiter U: Serving food to Customer 46
+[02:02 pm] 		Customer 46 gets food [Waiting time = 11]
+[02:06 pm] Cook C: Prepared order (Waiter X, Customer 44, Count 3)
+[02:06 pm] 			Waiter X: Serving food to Customer 44
+[02:06 pm] 		Customer 44 gets food [Waiting time = 16]
+[02:06 pm] Customer 48 arrives (count = 2)
+[02:06 pm] Customer 49 arrives (count = 1)
+[02:07 pm] 	Cook D: Prepared order (Waiter V, Customer 47, Count 1)
+[02:07 pm] 	Waiter V: Serving food to Customer 47
+[02:07 pm] 		Customer 47 gets food [Waiting time = 9]
+[02:07 pm] 		Waiter W: Placing order for Customer 48 (count = 2)
+[02:07 pm] 	Customer 48: Order placed to Waiter W
+[02:07 pm] Cook C: Preparing order (Waiter W, Customer 48, Count 2)
+[02:07 pm] 			Waiter X: Placing order for Customer 49 (count = 1)
+[02:07 pm] 	Customer 49: Order placed to Waiter X
+[02:07 pm] 	Cook D: Preparing order (Waiter X, Customer 49, Count 1)
+[02:07 pm] 						Customer 50 leaves (no empty table)
+[02:09 pm] 			Customer 41 finishes eating and leaves
+[02:10 pm] Customer 51 arrives (count = 1)
+[02:11 pm] 			Customer 40 finishes eating and leaves
+[02:11 pm] 				Waiter Y: Placing order for Customer 51 (count = 1)
+[02:11 pm] 	Customer 51: Order placed to Waiter Y
+[02:12 pm] 	Cook D: Prepared order (Waiter X, Customer 49, Count 1)
+[02:12 pm] 	Cook D: Preparing order (Waiter Y, Customer 51, Count 1)
+[02:12 pm] 			Waiter X: Serving food to Customer 49
+[02:12 pm] 		Customer 49 gets food [Waiting time = 6]
+[02:16 pm] 			Customer 42 finishes eating and leaves
+[02:17 pm] Cook C: Prepared order (Waiter W, Customer 48, Count 2)
+[02:17 pm] 		Waiter W: Serving food to Customer 48
+[02:17 pm] 		Customer 48 gets food [Waiting time = 11]
+[02:17 pm] 	Cook D: Prepared order (Waiter Y, Customer 51, Count 1)
+[02:17 pm] 				Waiter Y: Serving food to Customer 51
+[02:17 pm] 		Customer 51 gets food [Waiting time = 7]
+[02:18 pm] Customer 52 arrives (count = 2)
+[02:18 pm] Customer 53 arrives (count = 1)
+[02:19 pm] Waiter U: Placing order for Customer 52 (count = 2)
+[02:19 pm] 	Waiter V: Placing order for Customer 53 (count = 1)
+[02:19 pm] 	Customer 52: Order placed to Waiter U
+[02:19 pm] 	Customer 53: Order placed to Waiter V
+[02:19 pm] Cook C: Preparing order (Waiter U, Customer 52, Count 2)
+[02:19 pm] 	Cook D: Preparing order (Waiter V, Customer 53, Count 1)
+[02:22 pm] 			Customer 43 finishes eating and leaves
+[02:24 pm] 	Cook D: Prepared order (Waiter V, Customer 53, Count 1)
+[02:24 pm] 	Waiter V: Serving food to Customer 53
+[02:24 pm] 		Customer 53 gets food [Waiting time = 6]
+[02:26 pm] Customer 54 arrives (count = 1)
+[02:27 pm] 			Customer 45 finishes eating and leaves
+[02:27 pm] 		Waiter W: Placing order for Customer 54 (count = 1)
+[02:27 pm] 	Customer 54: Order placed to Waiter W
+[02:27 pm] 	Cook D: Preparing order (Waiter W, Customer 54, Count 1)
+[02:29 pm] Cook C: Prepared order (Waiter U, Customer 52, Count 2)
+[02:29 pm] Waiter U: Serving food to Customer 52
+[02:29 pm] 		Customer 52 gets food [Waiting time = 11]
+[02:30 pm] Customer 55 arrives (count = 1)
+[02:31 pm] 			Waiter X: Placing order for Customer 55 (count = 1)
+[02:31 pm] 	Customer 55: Order placed to Waiter X
+[02:31 pm] Cook C: Preparing order (Waiter X, Customer 55, Count 1)
+[02:31 pm] 						Customer 56 leaves (no empty table)
+[02:32 pm] 			Customer 46 finishes eating and leaves
+[02:32 pm] 	Cook D: Prepared order (Waiter W, Customer 54, Count 1)
+[02:32 pm] 		Waiter W: Serving food to Customer 54
+[02:32 pm] 		Customer 54 gets food [Waiting time = 6]
+[02:36 pm] 			Customer 44 finishes eating and leaves
+[02:36 pm] Cook C: Prepared order (Waiter X, Customer 55, Count 1)
+[02:36 pm] 			Waiter X: Serving food to Customer 55
+[02:36 pm] 		Customer 55 gets food [Waiting time = 6]
+[02:37 pm] 			Customer 47 finishes eating and leaves
+[02:39 pm] Customer 57 arrives (count = 1)
+[02:40 pm] 				Waiter Y: Placing order for Customer 57 (count = 1)
+[02:40 pm] 	Customer 57: Order placed to Waiter Y
+[02:40 pm] 	Cook D: Preparing order (Waiter Y, Customer 57, Count 1)
+[02:42 pm] 			Customer 49 finishes eating and leaves
+[02:43 pm] Customer 58 arrives (count = 1)
+[02:44 pm] Waiter U: Placing order for Customer 58 (count = 1)
+[02:44 pm] 	Customer 58: Order placed to Waiter U
+[02:44 pm] Cook C: Preparing order (Waiter U, Customer 58, Count 1)
+[02:45 pm] 	Cook D: Prepared order (Waiter Y, Customer 57, Count 1)
+[02:45 pm] 				Waiter Y: Serving food to Customer 57
+[02:45 pm] 		Customer 57 gets food [Waiting time = 6]
+[02:46 pm] Customer 59 arrives (count = 1)
+[02:47 pm] 			Customer 48 finishes eating and leaves
+[02:47 pm] 			Customer 51 finishes eating and leaves
+[02:47 pm] 	Waiter V: Placing order for Customer 59 (count = 1)
+[02:47 pm] 	Customer 59: Order placed to Waiter V
+[02:47 pm] 	Cook D: Preparing order (Waiter V, Customer 59, Count 1)
+[02:49 pm] Cook C: Prepared order (Waiter U, Customer 58, Count 1)
+[02:49 pm] Waiter U: Serving food to Customer 58
+[02:49 pm] 		Customer 58 gets food [Waiting time = 6]
+[02:52 pm] 	Cook D: Prepared order (Waiter V, Customer 59, Count 1)
+[02:52 pm] 	Waiter V: Serving food to Customer 59
+[02:52 pm] 		Customer 59 gets food [Waiting time = 6]
+[02:52 pm] Customer 60 arrives (count = 2)
+[02:53 pm] 		Waiter W: Placing order for Customer 60 (count = 2)
+[02:53 pm] 	Customer 60: Order placed to Waiter W
+[02:53 pm] Cook C: Preparing order (Waiter W, Customer 60, Count 2)
+[02:54 pm] 			Customer 53 finishes eating and leaves
+[02:59 pm] 			Customer 52 finishes eating and leaves
+[03:00 pm] Customer 61 arrives (count = 1)
+[03:01 pm] 			Waiter X: Placing order for Customer 61 (count = 1)
+[03:01 pm] 	Customer 61: Order placed to Waiter X
+[03:01 pm] 	Cook D: Preparing order (Waiter X, Customer 61, Count 1)
+[03:02 pm] 			Customer 54 finishes eating and leaves
+[03:02 pm] 						Customer 62 leaves (late arrival)
+[03:03 pm] Cook C: Prepared order (Waiter W, Customer 60, Count 2)
+[03:03 pm] Cook C: Leaving
+[03:03 pm] 		Waiter W: Serving food to Customer 60
+[03:03 pm] 		Waiter W leaving (no more customer to serve)
+[03:03 pm] 		Customer 60 gets food [Waiting time = 11]
+[03:06 pm] 			Customer 55 finishes eating and leaves
+[03:06 pm] 	Cook D: Prepared order (Waiter X, Customer 61, Count 1)
+[03:06 pm] Cook D: Leaving
+[03:06 pm] 			Waiter X: Serving food to Customer 61
+[03:06 pm] 	Waiter V leaving (no more customer to serve)
+[03:06 pm] 		Customer 61 gets food [Waiting time = 6]
+[03:06 pm] Waiter U leaving (no more customer to serve)
+[03:06 pm] 				Waiter Y leaving (no more customer to serve)
+[03:06 pm] 			Waiter X leaving (no more customer to serve)
+[03:08 pm] 						Customer 63 leaves (late arrival)
+[03:14 pm] 						Customer 64 leaves (late arrival)
+[03:15 pm] 			Customer 57 finishes eating and leaves
+[03:19 pm] 			Customer 58 finishes eating and leaves
+[03:22 pm] 			Customer 59 finishes eating and leaves
+[03:33 pm] 			Customer 60 finishes eating and leaves
+[03:36 pm] 			Customer 61 finishes eating and leaves
+$
