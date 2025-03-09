@@ -13,36 +13,38 @@
 #define SHM_SIZE 	2000
 #define MIN_SCALE   100000
 
-void semwait(int semid, int posn)
+void P(int semid, int posn)
 {
 	struct sembuf pop = {posn, -1, 0};
 	int check = semop(semid, &pop, 1);
 	if (check == -1) {
-		perror("semwait failed!");
+		perror("P() - wait failed!");
 		exit(EXIT_FAILURE);
 	}
 }
 
-void semsignal(int semid, int posn)
+void V(int semid, int posn)
 {
 	struct sembuf vop = {posn, 1, 0};
 	int check = semop(semid, &vop, 1);
 	if (check == -1)
 	{
-		perror("semsignal failed!");
+		perror("V() - signal failed!");
 		exit(EXIT_FAILURE);
 	}
 }
 
-char *time_str(int time)
+char *time_str(int time) 
 {
-    int hour = (time / 60) + 11;
-    int minute = time % 60;
-    char *str = (char *)malloc(20 * sizeof(char));
+	int hour = (time / 60) + 11;
+	int minute = time % 60;
+	char *str = (char *)malloc(20);
+	if (!str) return NULL;
 
-    if (hour >= 12) sprintf(str, "[%02d:%02d pm]", (hour % 12) ? (hour % 12) : 12, minute);
-    else sprintf(str, "[%02d:%02d am]", (hour % 12) ? (hour % 12) : 12, minute);
-    return str;
+	char period = (hour >= 12) ? 'p' : 'a';
+	hour = (hour % 12) ? (hour % 12) : 12;
+	snprintf(str, 20, "[%02d:%02d %cm]", hour, minute, period);
+	return str;
 }
 
 void cmain(){
@@ -51,7 +53,7 @@ void cmain(){
 	key_t mtx_cook_key = ftok("makefile", 'C');
 	key_t mtx_waiter_key = ftok("makefile", 'W');
 
-	int shmid = shmget(shm_key, 2000, 0666);
+	int shmid = shmget(shm_key, SHM_SIZE, 0666);
 	int mtx_M = semget(mtx_M_key, 1, 0666);
 	int mtx_cook = semget(mtx_cook_key, 1, 0666);
 	int mtx_waiter = semget(mtx_waiter_key, 5, 0666);
@@ -60,14 +62,14 @@ void cmain(){
 	if (M == (int *)-1) { perror("shmat failed"); exit(EXIT_FAILURE); }
 
 
-	semwait(mtx_M, 0);
+	P(mtx_M, 0);
 	int time = M[0];
 	pid_t pid = getpid();
 	char cook = (M[4] == pid) ? 'C' : 'D';
-	semsignal(mtx_M, 0);
+	V(mtx_M, 0);
 
 	char *str = time_str(time);
-	printf("%s", str);
+	printf("%s ", str);
 	if (cook == 'D') printf("  ");
 	printf("Cook %c started\n", cook);
 	fflush(stdout);
@@ -75,8 +77,8 @@ void cmain(){
 
 	while (1)
 	{
-		semwait(mtx_cook, 0);
-		semwait(mtx_M, 0);
+		P(mtx_cook, 0);
+		P(mtx_M, 0);
 
 		int front = M[1100], rear = M[1101];
 		char waiter = M[rear] + 'U';
@@ -85,7 +87,7 @@ void cmain(){
 		M[1101] = rear + 3;
 		time = M[0];
 		
-		semsignal(mtx_M, 0);
+		V(mtx_M, 0);
 
 		char *str = time_str(time);
         printf("%s", str);
@@ -97,7 +99,7 @@ void cmain(){
         int delT = 5 * customer_cnt;
         usleep(delT * MIN_SCALE);
 
-		semwait(mtx_M, 0);
+		P(mtx_M, 0);
 		M[0] = time + delT;
 		time = M[0];
 
@@ -107,8 +109,8 @@ void cmain(){
 		front = M[1100];
 		rear = M[1101];
 
-		semsignal(mtx_M, 0);
-		semsignal(mtx_waiter, waiter_id);
+		V(mtx_M, 0);
+		V(mtx_waiter, waiter_id);
 
 		char *str2 = time_str(time);
 		printf("%s", str2);
@@ -146,7 +148,7 @@ int main(){
 		exit(EXIT_FAILURE);
 	}
 
-	int shmid = shmget(shm_key, 2000 * sizeof(int), IPC_CREAT | 0666);
+	int shmid = shmget(shm_key, SHM_SIZE * sizeof(int), IPC_CREAT | 0666);
 	int mtx_M = semget(mtx_M_key, 1, IPC_CREAT | 0666);
 	int mtx_cook = semget(mtx_cook_key, 1, IPC_CREAT | 0666);
 	int mtx_waiter = semget(mtx_waiter_key, 5, IPC_CREAT | 0666);
@@ -167,7 +169,7 @@ int main(){
 		perror("shmat failed");
 		exit(EXIT_FAILURE);
 	}
-	memset(M, 0, 2000 * sizeof(int));
+	memset(M, 0, SHM_SIZE * sizeof(int));
 	M[1] = 10;
 
 	semctl(mtx_M, 0, SETVAL, 1);
@@ -187,14 +189,14 @@ int main(){
 		}
 		else
 		{
-			semwait(mtx_M, 0);
+			P(mtx_M, 0);
 			M[4 + i] = pid;
 			cpids[i] = pid;
-			semsignal(mtx_M, 0);
+			V(mtx_M, 0);
 		}
 	}
 	for (int i = 0; i < cooks; i++) waitpid(cpids[i], NULL, 0);
-	for (int i = 0; i < 5; i++) semsignal(mtx_waiter, i);
+	for (int i = 0; i < 5; i++) V(mtx_waiter, i);
 	shmdt(M);
 	exit(0);
 }
