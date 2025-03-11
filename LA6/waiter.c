@@ -13,10 +13,19 @@
 #define SHM_SIZE    2000
 #define MIN_SCALE   100000
 
+#define K0	ftok("makefile", 'M')
+#define K1  ftok("makefile", 'K')
+#define K2  ftok("makefile", 'C')
+#define K3  ftok("makefile", 'W')
+#define K4  ftok("makefile", 'U')
+
+#define semwait(n, p)  semop(n, &p, 1)
+#define semsignal(n, p)  semop(n, &p, 1)
+
 void P(int semid, int posn)
 {
 	struct sembuf pop = {posn, -1, 0};
-	int check = semop(semid, &pop, 1);
+	int check = semwait(semid, pop);
 	if (check == -1)
 	{
 		perror("P() - wait failed!");
@@ -27,7 +36,7 @@ void P(int semid, int posn)
 void V(int semid, int posn)
 {
 	struct sembuf vop = {posn, 1, 0};
-	int check = semop(semid, &vop, 1);
+	int check = semsignal(semid, vop);
 	if (check == -1)
 	{
 		perror("V() - signal failed!");
@@ -49,11 +58,11 @@ char *time_str(int time)
 }
 
 void wmain(){
-	key_t shm_key = ftok("makefile", 'M');
-	key_t mtx_M_key = ftok("makefile", 'K');
-	key_t mtx_cook_key = ftok("makefile", 'C');
-	key_t mtx_waiter_key = ftok("makefile", 'W');
-	key_t mtx_customer_key = ftok("makefile", 'U');
+	key_t shm_key = K0;
+	key_t mtx_M_key = K1;
+	key_t mtx_cook_key = K2;
+	key_t mtx_waiter_key = K3;
+	key_t mtx_customer_key = K4;
 
 	int shmid = shmget(shm_key, SHM_SIZE, 0666);
 	int mtx_M = semget(mtx_M_key, 1, 0666);
@@ -77,9 +86,10 @@ void wmain(){
 	}
 	int time = M[0];
 	int start = 200 * waiter_id;
+	int waiting_orders = 0;
 	V(mtx_M, 0);
 
-	printf("%s %*cWaiter %c is ready\n", time_str(time), waiter_id + 1, ' ', waiter);
+	printf("%s %*cWaiter %c is ready\n", time_str(time), (waiter_id << 1) + 1, ' ', waiter);
 	fflush(stdout);
 
     while(1){
@@ -92,7 +102,8 @@ void wmain(){
 		if (M[start + 100] != 0)
 		{
 			int customer_id = M[start + 100];
-			printf("%s %*c   Waiter %c: Serving food to Customer %d\n",  time_str(time), waiter_id + 1, ' ', waiter, customer_id);
+			printf("%s %*cWaiter %c: Serving food to Customer %d\n",  time_str(time), (waiter_id << 1) + 1, ' ', waiter, customer_id);
+			waiting_orders--;
 			fflush(stdout);
 
 			M[start + 100] = 0;
@@ -100,22 +111,24 @@ void wmain(){
 
 			int f1 = (rear > front) ? 1 : 0;
 			int f2 = (time > 240) ? 1 : 0;
-			if (f1 + f2 == 2)
+			if (f1 + f2 == 2 && waiting_orders == 0)
 			{
-				printf("%s %*c      Waiter %c: Leaving\n", time_str(time), waiter_id + 1, ' ', waiter);
+				printf("%s %*cWaiter %c: Leaving\n", time_str(time), (waiter_id << 1) + 1, ' ', waiter);
 				fflush(stdout);
 				V(mtx_M, 0);
+				V(mtx_cook, 0);
 				break;
 			}
 		}
 
-		int f1 = (rear > front) ? 1 : 0;
+		int f1 = ((rear > front) || (rear == 0)) ? 1 : 0;
 		int f2 = (time > 240) ? 1 : 0;
-		if (f1 + f2 == 2)
+		if (f1 + f2 == 2 && waiting_orders == 0)
 		{
-			printf("%s %*c      Waiter %c: Leaving\n", time_str(time), waiter_id + 1, ' ', waiter);
+			printf("%s %*cWaiter %c: Leaving\n", time_str(time), (waiter_id << 1) + 1, ' ', waiter);
 			fflush(stdout);
 			V(mtx_M, 0);
+			V(mtx_cook, 0);
 			break;
 		}
 
@@ -152,7 +165,9 @@ void wmain(){
 		M[front + 2] = customer_cnt;
 
 		V(mtx_M, 0);
-		printf("%s %*c   Waiter %c: Placing order for Customer %d (count = %d)\n", time_str(time), waiter_id + 1, ' ', waiter, customer_id, customer_cnt);
+		printf("%s %*cWaiter %c: Placing order for Customer %d (count = %d)\n", time_str(time), (waiter_id << 1) + 1, ' ', waiter, customer_id, customer_cnt);
+		fflush(stdout);
+		waiting_orders++;
 		V(mtx_cook, 0);
 	}
 	shmdt(M);
@@ -160,8 +175,8 @@ void wmain(){
 }
 
 int main(){
-	key_t shm_key = ftok("makefile", 'M');
-	key_t mtx_M_key = ftok("makefile", 'K');
+	key_t shm_key = K0;
+	key_t mtx_M_key = K1;
 
 	int shmid = shmget(shm_key, SHM_SIZE, 0666);
 	int mtx_M = semget(mtx_M_key, 1, 0666);

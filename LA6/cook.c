@@ -13,11 +13,21 @@
 #define SHM_SIZE 	2000
 #define MIN_SCALE   100000
 
+#define K0 ftok("makefile", 'M')
+#define K1 ftok("makefile", 'K')
+#define K2 ftok("makefile", 'C')
+#define K3 ftok("makefile", 'W')
+#define K4 ftok("makefile", 'U')
+
+#define semwait(n, p) semop(n, &p, 1)
+#define semsignal(n, p) semop(n, &p, 1)
+
 void P(int semid, int posn)
 {
 	struct sembuf pop = {posn, -1, 0};
-	int check = semop(semid, &pop, 1);
-	if (check == -1) {
+	int check = semwait(semid, pop);
+	if (check == -1)
+	{
 		perror("P() - wait failed!");
 		exit(EXIT_FAILURE);
 	}
@@ -26,7 +36,7 @@ void P(int semid, int posn)
 void V(int semid, int posn)
 {
 	struct sembuf vop = {posn, 1, 0};
-	int check = semop(semid, &vop, 1);
+	int check = semsignal(semid, vop);
 	if (check == -1)
 	{
 		perror("V() - signal failed!");
@@ -48,10 +58,10 @@ char *time_str(int time)
 }
 
 void cmain(){
-	key_t shm_key = ftok("makefile", 'M');
-	key_t mtx_M_key = ftok("makefile", 'K');
-	key_t mtx_cook_key = ftok("makefile", 'C');
-	key_t mtx_waiter_key = ftok("makefile", 'W');
+	key_t shm_key = K0;
+	key_t mtx_M_key = K1;
+	key_t mtx_cook_key = K2;
+	key_t mtx_waiter_key = K3;
 
 	int shmid = shmget(shm_key, SHM_SIZE, 0666);
 	int mtx_M = semget(mtx_M_key, 1, 0666);
@@ -79,16 +89,24 @@ void cmain(){
 	{
 		P(mtx_cook, 0);
 		P(mtx_M, 0);
-
+		
 		int front = M[1100], rear = M[1101];
 		char waiter = M[rear] + 'U';
 		int customer_id = M[rear + 1];
 		int customer_cnt = M[rear + 2];
 		M[1101] = rear + 3;
 		time = M[0];
+
+		if (rear > front && time > 240)
+		{
+			printf("%s", time_str(time));
+			if (cook == 'D') printf("  ");
+			printf(" Cook %c: Leaving\n", cook);
+			V(mtx_M, 0);
+			break;
+		}
 		
 		V(mtx_M, 0);
-
 		char *str = time_str(time);
         printf("%s", str);
         if (cook == 'D') printf("  ");
@@ -137,11 +155,11 @@ void cmain(){
 }
 
 int main(){
-	key_t shm_key = ftok("makefile", 'M');
-	key_t mtx_M_key = ftok("makefile", 'K');
-	key_t mtx_cook_key = ftok("makefile", 'C');
-	key_t mtx_waiter_key = ftok("makefile", 'W');
-	key_t mtx_customer_key = ftok("makefile", 'U');
+	key_t shm_key = K0;
+	key_t mtx_M_key = K1;
+	key_t mtx_cook_key = K2;
+	key_t mtx_waiter_key = K3;
+	key_t mtx_customer_key = K4;
 
 	if (shm_key == -1 || mtx_M_key == -1 || mtx_cook_key == -1 || mtx_waiter_key == -1 || mtx_customer_key == -1) {
 		perror("ftok failed");

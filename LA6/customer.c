@@ -14,10 +14,19 @@
 #define MIN_SCALE   100000
 #define FILENAME    "customers.txt"
 
+#define K0 ftok("makefile", 'M')
+#define K1 ftok("makefile", 'K')
+#define K2 ftok("makefile", 'C')
+#define K3 ftok("makefile", 'W')
+#define K4 ftok("makefile", 'U')
+
+#define semwait(n, p) semop(n, &p, 1)
+#define semsignal(n, p) semop(n, &p, 1)
+
 void P(int semid, int posn)
 {
 	struct sembuf pop = {posn, -1, 0};
-	int check = semop(semid, &pop, 1);
+	int check = semwait(semid, pop);
 	if (check == -1)
 	{
 		perror("P() - wait failed!");
@@ -28,14 +37,13 @@ void P(int semid, int posn)
 void V(int semid, int posn)
 {
 	struct sembuf vop = {posn, 1, 0};
-	int check = semop(semid, &vop, 1);
+	int check = semsignal(semid, vop);
 	if (check == -1)
 	{
 		perror("V() - signal failed!");
 		exit(EXIT_FAILURE);
 	}
 }
-
 char *time_str(int time) 
 {
 	int hour = (time / 60) + 11;
@@ -51,10 +59,10 @@ char *time_str(int time)
 
 void cmain(int customer_id, int T, int customer_cnt)
 {
-	key_t shm_key = ftok("makefile", 'M');
-	key_t mtx_M_key = ftok("makefile", 'K');
-	key_t mtx_waiter_key = ftok("makefile", 'W');
-	key_t mtx_customer_key = ftok("makefile", 'U');
+	key_t shm_key = K0;
+	key_t mtx_M_key = K1;
+	key_t mtx_waiter_key = K3;
+	key_t mtx_customer_key = K4;
 
 	int shmid = shmget(shm_key, SHM_SIZE, 0666);
 	int mtx_M = semget(mtx_M_key, 1, 0666);
@@ -157,11 +165,11 @@ void cmain(int customer_id, int T, int customer_cnt)
 }
 
 int main(){
-	key_t shm_key = ftok("makefile", 'M');
-	key_t mtx_M_key = ftok("makefile", 'K');
-	key_t mtx_cook_key = ftok("makefile", 'C');
-	key_t mtx_waiter_key = ftok("makefile", 'W');
-	key_t mtx_customer_key = ftok("makefile", 'U');
+	key_t shm_key = K0;
+	key_t mtx_M_key = K1;
+	key_t mtx_cook_key = K2;
+	key_t mtx_waiter_key = K3;
+	key_t mtx_customer_key = K4;
 
 	int shmid = shmget(shm_key, SHM_SIZE, 0666);
 	int mtx_M = semget(mtx_M_key, 1, 0666);
