@@ -23,7 +23,7 @@ db:
 	./gencustomers > customers.txt
 
 clean:
-	rm -f cook waiter customer gencustomers transcript_cook.txt transcript_waiter.txt customer.txt 
+	rm -f cook waiter customer gencustomers transcript_cook.txt transcript_waiter.txt transcript_customer.txt transcript_all.txt
 
 run: all
 	xterm -T "COOK" -fa "Monospace" -fs 12 -bg black -fg cyan -geometry 80x24+1000+0 -b 2 -e bash -c "./cook; exec bash" & sleep 1; \

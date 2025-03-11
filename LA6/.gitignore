@@ -1,0 +1,14 @@
+/*.out
+/*.txt
+!/customers.txt
+.vscode
+
+cook
+customer
+gencustomers
+waiter
+
+./transcript_cook.txt
+./transcript_customer.txt
+./transcript_waiter.txt
+./transcript_all.txt
