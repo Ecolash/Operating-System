@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+/*
+A mutex (Mutual Exclusion) is used to prevent race conditions when multiple threads access shared data.
+
+🔹 Mutex Functions:
+
+pthread_mutex_init() — Initializes a mutex.
+pthread_mutex_lock() — Locks the mutex.
+pthread_mutex_unlock() — Unlocks the mutex.
+pthread_mutex_destroy() — Destroys the mutex.
+*/
+
 typedef struct
 {
     int thread_no;

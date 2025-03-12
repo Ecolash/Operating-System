@@ -37,6 +37,18 @@ Condition Variables in POSIX Threads (pthread)
 #include <stdlib.h>
 #include <pthread.h>
 
+/*
+Condition Variables are used when a thread must wait for a condition to become true before proceeding.
+
+🔹 Condition Variable Functions;
+
+    pthread_cond_init() — Initializes the condition variable.
+    pthread_cond_wait() — Waits until a condition is signaled.
+    pthread_cond_signal() — Wakes one waiting thread.
+    pthread_cond_broadcast() — Wakes all waiting threads.
+    pthread_cond_destroy() — Destroys the condition variable.
+*/
+
 pthread_mutex_t count_mutex     = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t condition_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t  condition_cond  = PTHREAD_COND_INITIALIZER;
