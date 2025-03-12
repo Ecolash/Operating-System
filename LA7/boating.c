@@ -12,6 +12,8 @@ int *BC;
 bool *BA;
 pthread_barrier_t *BB;
 
+#define MINSCALE 10000
+
 typedef struct
 {
     int id;
@@ -57,7 +59,7 @@ pthread_barrier_t EOS;
 
 void* B_THREAD(void* arg) {
     int id = *(int*)arg;
-    printf("Boat %6d \tReady\n", id);
+    printf("   Boat %-2d  Ready\n", id);
 
     while(1)
     {
@@ -76,9 +78,9 @@ void* B_THREAD(void* arg) {
         int rtime = BT[id - 1];
         pthread_mutex_unlock(&bmtx);
 
-        printf("Boat %6d \tStart of ride for visitor %3d\n", id, visitor_id);
-        usleep(rtime * 100000);
-        printf("Boat %6d \tEnd of ride for visitor %3d (ride time = %2d)\n", id, visitor_id, rtime);
+        printf("   Boat %-2d  Start of ride for visitor %3d\n", id, visitor_id);
+        usleep(rtime * MINSCALE);
+        printf("   Boat %-2d  End of ride for visitor %-2d (ride time = %2d)\n", id, visitor_id, rtime);
 
         n = n - 1;
         if (n == 0)
@@ -87,7 +89,7 @@ void* B_THREAD(void* arg) {
             break;
         }
     }
-    // printf("Boat %6d \tShutting down\n", id);
+    // printf("   Boat %-2d  Shutting down\n", id);
     return NULL;
 }
 
@@ -95,10 +97,10 @@ void* R_THREAD(void* arg) {
     visitor *v = (visitor*)arg;
     int rtime = v->rtime;
     int vtime = v->vtime;
-    printf("Visitor %3d \tStarts sightseeing for %-3d minutes\n", v->id, vtime);
-    usleep(vtime * 100000);
+    printf("Visitor %-2d  Starts sightseeing for %-3d minutes\n", v->id, vtime);
+    usleep(vtime * MINSCALE);
 
-    printf("Visitor %3d \tReady to ride a boat (ride time = %2d)\n", v->id, rtime);
+    printf("Visitor %-2d  Ready to ride a boat (ride time = %2d)\n", v->id, rtime);
     V(&boat);
     P(&rider);
     int found_boat = -1;
@@ -118,10 +120,10 @@ void* R_THREAD(void* arg) {
         pthread_mutex_unlock(&bmtx);
         if (found_boat == -1) usleep(1000);
     }
-    printf("Visitor %3d \tFinds boat %2d\n", v->id, found_boat);
+    printf("Visitor %-2d  Finds boat %2d\n", v->id, found_boat);
     pthread_barrier_wait(&BB[found_boat - 1]);
-    usleep(rtime * 100000);
-    printf("Visitor %3d \tLeaving\n", v->id);
+    usleep(rtime * MINSCALE);
+    printf("Visitor %-2d  Leaving\n", v->id);
     return NULL;
 }
 
@@ -138,6 +140,7 @@ int main(int argc, char *argv[])
 
     m = atoi(argv[1]); 
     n = atoi(argv[2]); 
+    srand(time(NULL));
 
     BA = (bool *)malloc(m * sizeof(int));
     BT = (int *)malloc(m * sizeof(int));
