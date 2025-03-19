@@ -1,0 +1,2767 @@
+gcc -Wall -o resource -pthread resource.c
+gcc -Wall -D_DLAVOID -o resource_nodeadlock -pthread resource.c
+./resource_nodeadlock
+	Thread 0 born
+	Thread 3 born
+	Thread 1 born
+	Thread 4 born
+	Thread 2 born
+	Thread 5 born
+	Thread 6 born
+	Thread 7 born
+	Thread 8 born
+	Thread 9 born
+	Thread 10 born
+	Thread 11 born
+	Thread 12 born
+	Thread 13 born
+	Thread 14 born
+	Thread 15 born
+	Thread 16 born
+	Thread 17 born
+	Thread 18 born
+	Thread 19 born
+	Thread 11 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 11
+		Waiting threads: 11
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 11
+		Waiting threads:
+	Thread 11 is granted its last resource request
+	Thread 5 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 5
+		Waiting threads: 5
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 5
+	Thread 10 sends resource request: type = ADDITIONAL
+		Waiting threads:
+Master thread stores resource request of thread 10
+		Waiting threads: 10
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 10
+		Waiting threads:
+	Thread 5 is granted its last resource request
+	Thread 10 is granted its last resource request
+	Thread 12 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 12
+		Waiting threads: 12
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 12
+		Waiting threads:
+	Thread 12 is granted its last resource request
+	Thread 15 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 15
+		Waiting threads: 15
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+		Waiting threads: 15
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 15 9
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Unsafe to grant request of thread 9
+		Waiting threads: 15 9
+	Thread 3 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 3
+		Waiting threads: 15 9 3
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Unsafe to grant request of thread 9
+Master thread grants resource request for thread 3
+	Thread 1 sends resource request: type = ADDITIONAL
+		Waiting threads: 15 9
+Master thread stores resource request of thread 1
+		Waiting threads: 15 9 1
+	Thread 3 is granted its last resource request
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+		Waiting threads: 15 9 1
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 15 9 1 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Unsafe to grant request of thread 0
+		Waiting threads: 15 9 1 0
+	Thread 6 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 6
+		Waiting threads: 15 9 1 0 6
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Unsafe to grant request of thread 0
+    +++ Insufficient resources to grant request of thread 6
+		Waiting threads: 15 9 1 0 6
+	Thread 7 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 7
+		Waiting threads: 15 9 1 0 6 7
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Unsafe to grant request of thread 0
+    +++ Insufficient resources to grant request of thread 6
+Master thread grants resource request for thread 7
+		Waiting threads: 15 9 1 0 6
+	Thread 7 is granted its last resource request
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 15 9 1 0 6 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 0
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+		Waiting threads: 15 9 1 0 6 14
+	Thread 3 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 3
+		Waiting threads: 15 9 1 0 6 14 3
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 0
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+Master thread grants resource request for thread 3
+		Waiting threads: 15 9 1 0 6 14
+	Thread 3 is granted its last resource request
+	Thread 11 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 11
+		Waiting threads: 15 9 1 0 6 14 11
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+Master thread grants resource request for thread 0
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+	Thread 0 is granted its last resource request
+Master thread grants resource request for thread 11
+		Waiting threads: 15 9 1 6 14
+	Thread 11 is granted its last resource request
+	Thread 17 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 17
+		Waiting threads: 15 9 1 6 14 17
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+		Waiting threads: 15 9 1 6 14 17
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 15 9 1 6 14 17 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+		Waiting threads: 15 9 1 6 14 17 16
+	Thread 2 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 2
+		Waiting threads: 15 9 1 6 14 17 16 2
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+		Waiting threads: 15 9 1 6 14 17 16 2
+	Thread 3 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 3
+		Waiting threads: 15 9 1 6 14 17 16 2 3
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+Master thread grants resource request for thread 3
+	Thread 10 sends resource request: type = ADDITIONAL
+		Waiting threads: 15 9 1 6 14 17 16 2
+Master thread stores resource request of thread 10
+		Waiting threads: 15 9 1 6 14 17 16 2 10
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 15
+	Thread 3 is granted its last resource request
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+		Waiting threads: 9 1 6 14 17 16 2 10
+	Thread 15 is granted its last resource request
+	Thread 4 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 4
+		Waiting threads: 9 1 6 14 17 16 2 10 4
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+		Waiting threads: 9 1 6 14 17 16 2 10 4
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8
+	Thread 12 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 12
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13
+	Thread 7 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 7
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 7
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7
+	Thread 18 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 18
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 18
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18
+	Thread 3 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 3
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18 3
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 18
+Master thread grants resource request for thread 3
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18
+	Thread 3 is granted its last resource request
+	Thread 15 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 15
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Unsafe to grant request of thread 0
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15 0
+	Thread 5 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 5
+		Waiting threads: 9 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15 0 5
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 9
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Insufficient resources to grant request of thread 5
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15 0 5
+	Thread 9 is granted its last resource request
+	Thread 9 sends resource request: type = RELEASE
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Insufficient resources to grant request of thread 5
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15 0 5
+	Thread 9 is done with its resource release request
+	Thread 11 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 11
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 7 18 15 0 5 11
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+Master thread grants resource request for thread 7
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11
+	Thread 7 is granted its last resource request
+	Thread 3 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 3
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 3
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+Master thread grants resource request for thread 3
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11
+	Thread 3 is granted its last resource request
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 9
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 9
+	Thread 7 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 7
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 9 7
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+Master thread grants resource request for thread 9
+    +++ Unsafe to grant request of thread 7
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7
+	Thread 9 is granted its last resource request
+	Thread 3 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 3
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7 3
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 3
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7
+	Thread 3 is granted its last resource request
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7 9
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7
+	Thread 9 is granted its last resource request
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7 9
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7
+	Thread 9 is granted its last resource request
+	Thread 3 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 3
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7 3
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 3
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7
+	Thread 3 is granted its last resource request
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7 9
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7
+	Thread 9 is granted its last resource request
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 12 19 13 18 15 0 5 11 7 9
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+Master thread grants resource request for thread 12
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 9
+		Waiting threads: 1 6 14 17 16 2 10 4 8 19 13 18 15 0 5 11 7 9
+	Thread 12 is granted its last resource request
+	Thread 12 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 12
+		Waiting threads: 1 6 14 17 16 2 10 4 8 19 13 18 15 0 5 11 7 9 12
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 5
+    +++ Unsafe to grant request of thread 11
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 9
+Master thread grants resource request for thread 12
+		Waiting threads: 1 6 14 17 16 2 10 4 8 19 13 18 15 0 5 11 7 9
+	Thread 12 is granted its last resource request
+Master thread releases resources of thread 3
+		Waiting threads: 1 6 14 17 16 2 10 4 8 19 13 18 15 0 5 11 7 9
+19 threads left: 0 1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+Available resources: 2 10 11 5 8 18 10 14 3 15
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+	Thread 3 going to quit
+Master thread grants resource request for thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+	Thread 6 is granted its last resource request
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+Master thread grants resource request for thread 5
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 9
+		Waiting threads: 1 14 17 16 2 10 4 8 19 13 18 15 0 11 7 9
+	Thread 5 is granted its last resource request
+	Thread 12 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 12
+		Waiting threads: 1 14 17 16 2 10 4 8 19 13 18 15 0 11 7 9 12
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+Master thread grants resource request for thread 14
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 0
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 9
+Master thread grants resource request for thread 12
+	Thread 14 is granted its last resource request
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 0 11 7 9
+	Thread 12 is granted its last resource request
+	Thread 6 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 6
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 0 11 7 9 6
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Unsafe to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+Master thread grants resource request for thread 0
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 9
+Master thread grants resource request for thread 6
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 7 9
+	Thread 6 is granted its last resource request
+	Thread 0 is granted its last resource request
+	Thread 5 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 5
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 7 9 5
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Unsafe to grant request of thread 11
+Master thread grants resource request for thread 7
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 5
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 9 5
+	Thread 7 is granted its last resource request
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 9 5 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Unsafe to grant request of thread 11
+    +++ Unsafe to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 14
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 9 5 14
+	Thread 6 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 6
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 9 5 14 6
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Unsafe to grant request of thread 11
+    +++ Unsafe to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 6
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 9 5 14 6
+	Thread 12 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 12
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 9 5 14 6 12
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Unsafe to grant request of thread 11
+Master thread grants resource request for thread 9
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 6
+Master thread grants resource request for thread 12
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 5 14 6
+	Thread 7 sends resource request: type = ADDITIONAL
+	Thread 9 is granted its last resource request
+Master thread stores resource request of thread 7
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 11 5 14 6 7
+	Thread 12 is granted its last resource request
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Unsafe to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+Master thread grants resource request for thread 11
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 7
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 6 7
+	Thread 11 is granted its last resource request
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 6 7 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 0
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 6 7
+	Thread 0 is granted its last resource request
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 6 7 9
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+Master thread grants resource request for thread 6
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 9
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 7 9
+	Thread 6 is granted its last resource request
+	Thread 12 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 12
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 7 9 12
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+Master thread grants resource request for thread 9
+    +++ Insufficient resources to grant request of thread 12
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 7 12
+	Thread 9 is granted its last resource request
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 7 12 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 2
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 0
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 7 12
+	Thread 0 is granted its last resource request
+	Thread 9 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 9
+		Waiting threads: 1 17 16 2 10 4 8 19 13 18 15 5 14 7 12 9
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+Master thread grants resource request for thread 2
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9
+	Thread 2 is granted its last resource request
+	Thread 11 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 11
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9 11
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 11
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9 11
+	Thread 6 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 6
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9 11 6
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 6
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9 11 6
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9 11 6 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 6
+Master thread grants resource request for thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9 11 6
+	Thread 0 is granted its last resource request
+	Thread 2 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 2
+		Waiting threads: 1 17 16 10 4 8 19 13 18 15 5 14 7 12 9 11 6 2
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+Master thread grants resource request for thread 15
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 2
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2
+	Thread 15 is granted its last resource request
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 11
+    +++ Unsafe to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 2
+Master thread grants resource request for thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2
+	Thread 0 is granted its last resource request
+	Thread 15 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 15
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 15
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 15
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 15
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 15 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 9
+    +++ Unsafe to grant request of thread 11
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 15
+Master thread grants resource request for thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 15
+	Thread 0 is granted its last resource request
+	Thread 0 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 15 0
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 9
+    +++ Unsafe to grant request of thread 11
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 2
+    +++ Unsafe to grant request of thread 15
+Master thread grants resource request for thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 15
+	Thread 0 is granted its last resource request
+Master thread releases resources of thread 0
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 9 11 6 2 15
+18 threads left: 1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+Available resources: 7 6 5 9 9 8 11 2 5 7
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+	Thread 0 going to quit
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 9
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 2
+Master thread grants resource request for thread 15
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 11 6 2
+	Thread 9 is granted its last resource request
+	Thread 15 is granted its last resource request
+Master thread releases resources of thread 9
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 11 6 2
+17 threads left: 1 2 4 5 6 7 8 10 11 12 13 14 15 16 17 18 19
+Available resources: 8 6 5 5 7 6 15 3 3 10
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+	Thread 9 going to quit
+Master thread grants resource request for thread 11
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 2
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 6 2
+	Thread 11 is granted its last resource request
+	Thread 11 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 11
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 14 7 12 6 2 11
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+Master thread grants resource request for thread 14
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 2
+    +++ Unsafe to grant request of thread 11
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 2 11
+	Thread 14 is granted its last resource request
+	Thread 15 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 15
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 2 11 15
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 6
+Master thread grants resource request for thread 2
+    +++ Unsafe to grant request of thread 11
+Master thread grants resource request for thread 15
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11
+	Thread 15 is granted its last resource request
+	Thread 2 is granted its last resource request
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11 14
+	Thread 15 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 15
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11 14 15
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 15
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11 14 15
+	Thread 2 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 2
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11 14 15 2
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Unsafe to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 6
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 15
+Master thread grants resource request for thread 2
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11 14 15
+	Thread 2 is granted its last resource request
+	Thread 2 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 2
+		Waiting threads: 1 17 16 10 4 8 19 13 18 5 7 12 6 11 14 15 2
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+Master thread grants resource request for thread 4
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+Master thread grants resource request for thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 15
+	Thread 4 is granted its last resource request
+Master thread grants resource request for thread 2
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15
+	Thread 11 is granted its last resource request
+	Thread 2 is granted its last resource request
+	Thread 2 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 2
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 2
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2
+	Thread 11 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 11
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2 11
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 15
+    +++ Insufficient resources to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 11
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2 11
+	Thread 4 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 4
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2 11 4
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Unsafe to grant request of thread 15
+    +++ Unsafe to grant request of thread 2
+    +++ Unsafe to grant request of thread 11
+Master thread grants resource request for thread 4
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2 11
+	Thread 4 is granted its last resource request
+	Thread 4 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 4
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2 11 4
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Unsafe to grant request of thread 15
+    +++ Unsafe to grant request of thread 2
+    +++ Unsafe to grant request of thread 11
+Master thread grants resource request for thread 4
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2 11
+	Thread 4 is granted its last resource request
+	Thread 4 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 4
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 15 2 11 4
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+Master thread grants resource request for thread 15
+    +++ Unsafe to grant request of thread 2
+    +++ Insufficient resources to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 2 11 4
+	Thread 15 is granted its last resource request
+	Thread 15 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 15
+		Waiting threads: 1 17 16 10 8 19 13 18 5 7 12 6 14 2 11 4 15
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+Master thread grants resource request for thread 2
+    +++ Insufficient resources to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 15
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 6 14 11 4 15
+	Thread 16 is granted its last resource request
+	Thread 2 is granted its last resource request
+	Thread 2 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 2
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 6 14 11 4 15 2
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 15
+Master thread grants resource request for thread 2
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 6 14 11 4 15
+	Thread 2 is granted its last resource request
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 6 14 11 4 15 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 6
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+    +++ Unsafe to grant request of thread 15
+    +++ Unsafe to grant request of thread 16
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 6 14 11 4 15 16
+Master thread releases resources of thread 2
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 6 14 11 4 15 16
+16 threads left: 1 4 5 6 7 8 10 11 12 13 14 15 16 17 18 19
+Available resources: 6 8 4 3 3 10 8 16 4 8
+Master thread tries to grant pending requests
+	Thread 2 going to quit
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 6
+Master thread grants resource request for thread 14
+    +++ Insufficient resources to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+    +++ Unsafe to grant request of thread 15
+    +++ Unsafe to grant request of thread 16
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 15 16
+	Thread 6 is granted its last resource request
+	Thread 14 is granted its last resource request
+	Thread 6 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 6
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 15 16 6
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+    +++ Unsafe to grant request of thread 15
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 6
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 15 16 6
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 15 16 6 14
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Unsafe to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Unsafe to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+Master thread grants resource request for thread 15
+    +++ Insufficient resources to grant request of thread 16
+Master thread grants resource request for thread 6
+Master thread grants resource request for thread 14
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 16
+	Thread 6 is granted its last resource request
+	Thread 14 is granted its last resource request
+	Thread 15 is granted its last resource request
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 16 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 14
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 16 14
+	Thread 15 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 15
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 16 14 15
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 4
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 15
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 16 14 15
+	Thread 6 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 6
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 4 16 14 15 6
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+Master thread grants resource request for thread 4
+    +++ Unsafe to grant request of thread 16
+    +++ Unsafe to grant request of thread 14
+    +++ Unsafe to grant request of thread 15
+Master thread grants resource request for thread 6
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 16 14 15
+	Thread 6 is granted its last resource request
+	Thread 4 is granted its last resource request
+Master thread releases resources of thread 6
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 16 14 15
+15 threads left: 1 4 5 7 8 10 11 12 13 14 15 16 17 18 19
+Available resources: 4 14 5 5 3 13 8 16 2 15
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Unsafe to grant request of thread 13
+	Thread 6 going to quit
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+Master thread grants resource request for thread 16
+    +++ Unsafe to grant request of thread 14
+Master thread grants resource request for thread 15
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 14
+	Thread 15 is granted its last resource request
+	Thread 16 is granted its last resource request
+	Thread 4 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 4
+		Waiting threads: 1 17 10 8 19 13 18 5 7 12 11 14 4
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 4
+		Waiting threads: 1 17 8 19 13 18 5 7 12 11 14 4
+	Thread 10 is granted its last resource request
+	Thread 10 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 10
+		Waiting threads: 1 17 8 19 13 18 5 7 12 11 14 4 10
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 10
+		Waiting threads: 1 17 8 19 13 18 5 7 12 11 14 4 10
+	Thread 16 sends resource request: type = RELEASE
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 1
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 11
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 10
+		Waiting threads: 17 8 19 13 18 5 7 12 11 14 4 10
+	Thread 16 is done with its resource release request
+	Thread 1 is granted its last resource request
+Master thread releases resources of thread 15
+		Waiting threads: 17 8 19 13 18 5 7 12 11 14 4 10
+14 threads left: 1 4 5 7 8 10 11 12 13 14 16 17 18 19
+Available resources: 5 9 10 8 6 8 4 14 10 12
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+	Thread 15 going to quit
+Master thread grants resource request for thread 8
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+Master thread grants resource request for thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 10
+		Waiting threads: 17 19 13 18 7 12 11 14 4 10
+	Thread 8 is granted its last resource request
+	Thread 5 is granted its last resource request
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 17 19 13 18 7 12 11 14 4 10 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 4
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+		Waiting threads: 17 19 13 18 7 12 11 14 4 10 16
+	Thread 1 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 1
+		Waiting threads: 17 19 13 18 7 12 11 14 4 10 16 1
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+Master thread grants resource request for thread 7
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 4
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 1
+		Waiting threads: 17 19 13 18 12 11 14 4 10 16 1
+	Thread 7 is granted its last resource request
+	Thread 5 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 5
+		Waiting threads: 17 19 13 18 12 11 14 4 10 16 1 5
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Unsafe to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 11
+    +++ Insufficient resources to grant request of thread 14
+    +++ Unsafe to grant request of thread 4
+    +++ Unsafe to grant request of thread 10
+    +++ Unsafe to grant request of thread 16
+    +++ Unsafe to grant request of thread 1
+Master thread grants resource request for thread 5
+		Waiting threads: 17 19 13 18 12 14 4 10 16 1
+	Thread 11 is granted its last resource request
+	Thread 5 is granted its last resource request
+Master thread releases resources of thread 11
+		Waiting threads: 17 19 13 18 12 14 4 10 16 1
+13 threads left: 1 4 5 7 8 10 12 13 14 16 17 18 19
+Available resources: 10 8 12 4 7 5 5 15 12 13
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Unsafe to grant request of thread 19
+    +++ Unsafe to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 14
+Master thread grants resource request for thread 4
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 1
+		Waiting threads: 17 19 13 18 12 10 16 1
+	Thread 11 going to quit
+	Thread 14 is granted its last resource request
+	Thread 4 is granted its last resource request
+	Thread 5 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 5
+		Waiting threads: 17 19 13 18 12 10 16 1 5
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 5
+		Waiting threads: 17 19 13 18 12 10 16 1 5
+	Thread 7 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 7
+		Waiting threads: 17 19 13 18 12 10 16 1 5 7
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+		Waiting threads: 17 19 13 18 12 10 16 1 5 7
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 19 13 18 12 10 16 1 5 7 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 19
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+Master thread grants resource request for thread 1
+    +++ Insufficient resources to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+		Waiting threads: 17 13 18 12 10 16 5 7 8
+	Thread 19 is granted its last resource request
+	Thread 1 is granted its last resource request
+	Thread 4 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 4
+		Waiting threads: 17 13 18 12 10 16 5 7 8 4
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+Master thread grants resource request for thread 4
+		Waiting threads: 17 13 18 12 10 16 5 7 8
+	Thread 4 is granted its last resource request
+	Thread 1 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 1
+		Waiting threads: 17 13 18 12 10 16 5 7 8 1
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+    +++ Unsafe to grant request of thread 5
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 1
+		Waiting threads: 17 13 18 12 10 16 5 7 8 1
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 17 13 18 12 10 16 5 7 8 1 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 10
+Master thread grants resource request for thread 16
+Master thread grants resource request for thread 5
+    +++ Insufficient resources to grant request of thread 7
+Master thread grants resource request for thread 8
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 14
+		Waiting threads: 17 13 18 12 10 7 1 14
+	Thread 16 is granted its last resource request
+	Thread 8 is granted its last resource request
+	Thread 5 is granted its last resource request
+Master thread releases resources of thread 5
+		Waiting threads: 17 13 18 12 10 7 1 14
+12 threads left: 1 4 7 8 10 12 13 14 16 17 18 19
+Available resources: 13 10 4 1 0 3 12 4 8 6
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 14
+		Waiting threads: 17 13 18 12 10 7 1 14
+	Thread 5 going to quit
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 17 13 18 12 10 7 1 14 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 1
+    +++ Unsafe to grant request of thread 14
+Master thread grants resource request for thread 16
+		Waiting threads: 17 13 18 12 10 7 1 14
+	Thread 16 is granted its last resource request
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 18 12 10 7 1 14 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 10
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 1
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 13 18 12 7 1 14 19
+	Thread 10 is granted its last resource request
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 13 18 12 7 1 14 19 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+Master thread grants resource request for thread 1
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 8
+		Waiting threads: 17 13 18 12 7 14 19 8
+	Thread 1 is granted its last resource request
+	Thread 4 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 4
+		Waiting threads: 17 13 18 12 7 14 19 8 4
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 14
+Master thread grants resource request for thread 19
+    +++ Insufficient resources to grant request of thread 8
+Master thread grants resource request for thread 4
+		Waiting threads: 17 13 18 12 7 14 8
+	Thread 4 is granted its last resource request
+	Thread 19 is granted its last resource request
+	Thread 1 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 1
+		Waiting threads: 17 13 18 12 7 14 8 1
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 1
+		Waiting threads: 17 13 18 12 7 14 8 1
+	Thread 10 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 10
+		Waiting threads: 17 13 18 12 7 14 8 1 10
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 1
+Master thread grants resource request for thread 10
+		Waiting threads: 17 13 18 12 7 14 8 1
+	Thread 10 is granted its last resource request
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 18 12 7 14 8 1 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 1
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 13 18 12 7 14 8 1 19
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 17 13 18 12 7 14 8 1 19 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 1
+    +++ Unsafe to grant request of thread 19
+Master thread grants resource request for thread 16
+		Waiting threads: 17 13 18 12 7 14 8 1 19
+	Thread 16 is granted its last resource request
+Master thread releases resources of thread 4
+		Waiting threads: 17 13 18 12 7 14 8 1 19
+11 threads left: 1 7 8 10 12 13 14 16 17 18 19
+Available resources: 10 5 11 5 1 5 10 21 3 11
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+	Thread 4 going to quit
+    +++ Unsafe to grant request of thread 14
+    +++ Unsafe to grant request of thread 8
+    +++ Unsafe to grant request of thread 1
+    +++ Unsafe to grant request of thread 19
+		Waiting threads: 17 13 18 12 7 14 8 1 19
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 17 13 18 12 7 14 8 1 19 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Unsafe to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 14
+    +++ Unsafe to grant request of thread 8
+Master thread grants resource request for thread 1
+    +++ Unsafe to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 16
+		Waiting threads: 17 13 18 12 7 8 19 16
+	Thread 14 is granted its last resource request
+	Thread 1 is granted its last resource request
+	Thread 10 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 10
+		Waiting threads: 17 13 18 12 7 8 19 16 10
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+    +++ Unsafe to grant request of thread 19
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+		Waiting threads: 17 13 18 12 7 8 19 16 10
+	Thread 1 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 1
+		Waiting threads: 17 13 18 12 7 8 19 16 10 1
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+    +++ Unsafe to grant request of thread 19
+    +++ Unsafe to grant request of thread 16
+    +++ Unsafe to grant request of thread 10
+Master thread grants resource request for thread 1
+		Waiting threads: 17 13 18 12 7 8 19 16 10
+	Thread 1 is granted its last resource request
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 17 13 18 12 7 8 19 16 10 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 19
+Master thread grants resource request for thread 16
+    +++ Unsafe to grant request of thread 10
+Master thread grants resource request for thread 14
+	Thread 16 is granted its last resource request
+		Waiting threads: 17 13 18 12 7 8 19 10
+	Thread 14 is granted its last resource request
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 17 13 18 12 7 8 19 10 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 19
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 14
+		Waiting threads: 17 13 18 12 7 8 19 10 14
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 17 13 18 12 7 8 19 10 14 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 19
+    +++ Unsafe to grant request of thread 10
+    +++ Unsafe to grant request of thread 14
+    +++ Insufficient resources to grant request of thread 16
+		Waiting threads: 17 13 18 12 7 8 19 10 14 16
+	Thread 1 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 1
+		Waiting threads: 17 13 18 12 7 8 19 10 14 16 1
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 19
+    +++ Unsafe to grant request of thread 10
+Master thread grants resource request for thread 14
+    +++ Unsafe to grant request of thread 16
+Master thread grants resource request for thread 1
+	Thread 14 is granted its last resource request
+		Waiting threads: 17 13 18 12 7 8 19 10 16
+	Thread 1 is granted its last resource request
+	Thread 14 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 14
+		Waiting threads: 17 13 18 12 7 8 19 10 16 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+    +++ Unsafe to grant request of thread 19
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+Master thread grants resource request for thread 14
+		Waiting threads: 17 13 18 12 7 8 19 10 16
+	Thread 14 is granted its last resource request
+	Thread 1 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 1
+		Waiting threads: 17 13 18 12 7 8 19 10 16 1
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+Master thread grants resource request for thread 19
+    +++ Unsafe to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 16
+Master thread grants resource request for thread 1
+	Thread 19 is granted its last resource request
+		Waiting threads: 17 13 18 12 7 8 10 16
+	Thread 1 is granted its last resource request
+Master thread releases resources of thread 14
+		Waiting threads: 17 13 18 12 7 8 10 16
+10 threads left: 1 7 8 10 12 13 16 17 18 19
+Available resources: 13 6 9 5 5 3 10 14 7 14
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+    +++ Unsafe to grant request of thread 10
+    +++ Unsafe to grant request of thread 16
+		Waiting threads: 17 13 18 12 7 8 10 16
+	Thread 14 going to quit
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 18 12 7 8 10 16 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+    +++ Unsafe to grant request of thread 8
+    +++ Unsafe to grant request of thread 10
+    +++ Unsafe to grant request of thread 16
+Master thread grants resource request for thread 19
+		Waiting threads: 17 13 18 12 7 8 10 16
+	Thread 19 is granted its last resource request
+Master thread releases resources of thread 1
+		Waiting threads: 17 13 18 12 7 8 10 16
+9 threads left: 7 8 10 12 13 16 17 18 19
+Available resources: 13 3 10 7 5 7 16 15 9 13
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+Master thread grants resource request for thread 18
+	Thread 1 going to quit
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 8
+Master thread grants resource request for thread 10
+    +++ Insufficient resources to grant request of thread 16
+		Waiting threads: 17 13 12 7 8 16
+	Thread 18 is granted its last resource request
+	Thread 10 is granted its last resource request
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 12 7 8 16 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 7
+Master thread grants resource request for thread 8
+    +++ Insufficient resources to grant request of thread 16
+Master thread grants resource request for thread 19
+	Thread 8 is granted its last resource request
+		Waiting threads: 17 13 12 7 16
+	Thread 19 is granted its last resource request
+	Thread 10 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 10
+		Waiting threads: 17 13 12 7 16 10
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+		Waiting threads: 17 13 12 7 16 10
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 12 7 16 10 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 7
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 13 12 7 16 10 19
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 13 12 7 16 10 19 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 7
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+Master thread grants resource request for thread 19
+	Thread 7 is granted its last resource request
+Master thread grants resource request for thread 8
+		Waiting threads: 17 13 12 16 10
+	Thread 8 is granted its last resource request
+	Thread 19 is granted its last resource request
+	Thread 18 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 18
+		Waiting threads: 17 13 12 16 10 18
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 18
+		Waiting threads: 17 13 12 16 10 18
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 12 16 10 18 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Unsafe to grant request of thread 18
+Master thread grants resource request for thread 19
+		Waiting threads: 17 13 12 16 10 18
+	Thread 19 is granted its last resource request
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 13 12 16 10 18 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 8
+		Waiting threads: 17 13 12 16 10 18 8
+	Thread 7 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 7
+		Waiting threads: 17 13 12 16 10 18 8 7
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 8
+Master thread grants resource request for thread 7
+		Waiting threads: 17 13 12 16 10 18 8
+	Thread 7 is granted its last resource request
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 12 16 10 18 8 19
+Master thread tries to grant pending requests
+    +++ Unsafe to grant request of thread 17
+    +++ Unsafe to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 18
+Master thread grants resource request for thread 8
+    +++ Unsafe to grant request of thread 19
+		Waiting threads: 17 13 12 16 10 18 19
+	Thread 8 is granted its last resource request
+	Thread 7 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 7
+		Waiting threads: 17 13 12 16 10 18 19 7
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Unsafe to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 18
+Master thread grants resource request for thread 19
+    +++ Insufficient resources to grant request of thread 7
+		Waiting threads: 17 13 12 16 10 18 7
+	Thread 19 is granted its last resource request
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 13 12 16 10 18 7 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 7
+Master thread grants resource request for thread 8
+		Waiting threads: 17 13 12 16 10 18 7
+	Thread 8 is granted its last resource request
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 13 12 16 10 18 7 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Unsafe to grant request of thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 18
+Master thread grants resource request for thread 7
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 13 12 16 10 18 19
+	Thread 7 is granted its last resource request
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 13 12 16 10 18 19 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 16
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 19
+Master thread grants resource request for thread 8
+		Waiting threads: 17 13 12 10 18 19
+	Thread 8 is granted its last resource request
+	Thread 16 is granted its last resource request
+	Thread 7 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 7
+		Waiting threads: 17 13 12 10 18 19 7
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+    +++ Unsafe to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 19
+Master thread grants resource request for thread 7
+		Waiting threads: 17 13 12 10 18 19
+	Thread 7 is granted its last resource request
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 13 12 10 18 19 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+Master thread grants resource request for thread 18
+    +++ Unsafe to grant request of thread 19
+    +++ Insufficient resources to grant request of thread 8
+		Waiting threads: 17 13 12 10 19 8
+	Thread 18 is granted its last resource request
+	Thread 16 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 16
+		Waiting threads: 17 13 12 10 19 8 16
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 13
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+Master thread grants resource request for thread 19
+    +++ Insufficient resources to grant request of thread 8
+    +++ Unsafe to grant request of thread 16
+		Waiting threads: 17 13 12 10 8 16
+	Thread 19 is granted its last resource request
+Master thread releases resources of thread 7
+		Waiting threads: 17 13 12 10 8 16
+8 threads left: 8 10 12 13 16 17 18 19
+Available resources: 9 9 9 5 8 17 12 2 17 9
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 13
+	Thread 7 going to quit
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 10
+    +++ Insufficient resources to grant request of thread 8
+Master thread grants resource request for thread 16
+		Waiting threads: 17 12 10 8
+	Thread 13 is granted its last resource request
+	Thread 16 is granted its last resource request
+	Thread 18 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 18
+		Waiting threads: 17 12 10 8 18
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 12
+Master thread grants resource request for thread 10
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 18
+		Waiting threads: 17 12 8 18
+	Thread 10 is granted its last resource request
+	Thread 19 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 19
+		Waiting threads: 17 12 8 18 19
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 12 8 18 19
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 17 12 8 18 19 13
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 8
+    +++ Insufficient resources to grant request of thread 18
+    +++ Insufficient resources to grant request of thread 19
+Master thread grants resource request for thread 13
+		Waiting threads: 17 12 8 18 19
+	Thread 13 is granted its last resource request
+Master thread releases resources of thread 16
+		Waiting threads: 17 12 8 18 19
+7 threads left: 8 10 12 13 17 18 19
+Available resources: 11 10 10 4 7 15 13 9 16 4
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 12
+	Thread 16 going to quit
+Master thread grants resource request for thread 8
+Master thread grants resource request for thread 18
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 12 19
+	Thread 8 is granted its last resource request
+	Thread 18 is granted its last resource request
+	Thread 10 sends resource request: type = RELEASE
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Insufficient resources to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 12 19
+	Thread 10 is done with its resource release request
+Master thread releases resources of thread 10
+		Waiting threads: 17 12 19
+6 threads left: 8 12 13 17 18 19
+Available resources: 12 0 14 7 11 17 15 17 19 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+    +++ Unsafe to grant request of thread 12
+    +++ Insufficient resources to grant request of thread 19
+		Waiting threads: 17 12 19
+	Thread 10 going to quit
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 17 12 19 13
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 12
+    +++ Insufficient resources to grant request of thread 19
+Master thread grants resource request for thread 13
+	Thread 12 is granted its last resource request
+		Waiting threads: 17 19
+	Thread 13 is granted its last resource request
+	Thread 8 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 8
+		Waiting threads: 17 19 8
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 19
+Master thread grants resource request for thread 8
+		Waiting threads: 17
+	Thread 8 is granted its last resource request
+	Thread 19 is granted its last resource request
+	Thread 18 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 18
+		Waiting threads: 17 18
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 18
+		Waiting threads: 17
+	Thread 18 is granted its last resource request
+	Thread 12 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 12
+		Waiting threads: 17 12
+Master thread tries to grant pending requests
+    +++ Insufficient resources to grant request of thread 17
+Master thread grants resource request for thread 12
+		Waiting threads: 17
+	Thread 12 is granted its last resource request
+Master thread releases resources of thread 12
+		Waiting threads: 17
+5 threads left: 8 13 17 18 19
+Available resources: 12 3 10 9 15 25 12 15 19 11
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 12 going to quit
+	Thread 17 is granted its last resource request
+Master thread releases resources of thread 8
+		Waiting threads:
+4 threads left: 13 17 18 19
+Available resources: 11 2 11 6 14 16 12 19 20 14
+Master thread tries to grant pending requests
+		Waiting threads:
+	Thread 8 going to quit
+Master thread releases resources of thread 19
+		Waiting threads:
+3 threads left: 13 17 18
+Available resources: 11 6 11 12 15 19 13 22 20 15
+Master thread tries to grant pending requests
+		Waiting threads:
+	Thread 19 going to quit
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 13
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 13
+		Waiting threads:
+	Thread 13 is granted its last resource request
+	Thread 18 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 18
+		Waiting threads: 18
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 18
+		Waiting threads:
+	Thread 18 is granted its last resource request
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 13
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 13
+		Waiting threads:
+	Thread 13 is granted its last resource request
+	Thread 17 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 17
+		Waiting threads: 17
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 17 is granted its last resource request
+Master thread releases resources of thread 18
+		Waiting threads:
+2 threads left: 13 17
+Available resources: 14 16 21 10 14 22 16 23 16 17
+Master thread tries to grant pending requests
+		Waiting threads:
+	Thread 18 going to quit
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 13
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 13
+		Waiting threads:
+	Thread 17 sends resource request: type = ADDITIONAL
+	Thread 13 is granted its last resource request
+Master thread stores resource request of thread 17
+		Waiting threads: 17
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 17 is granted its last resource request
+	Thread 17 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 17
+		Waiting threads: 17
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 17 is granted its last resource request
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 13
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 13
+		Waiting threads:
+	Thread 13 is granted its last resource request
+	Thread 17 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 17
+		Waiting threads: 17
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 17 is granted its last resource request
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 13
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 13
+		Waiting threads:
+	Thread 13 is granted its last resource request
+	Thread 17 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 17
+		Waiting threads: 17
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 17 is granted its last resource request
+	Thread 17 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 17
+		Waiting threads: 17
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 17 is granted its last resource request
+	Thread 13 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 13
+		Waiting threads: 13
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 13
+		Waiting threads:
+	Thread 13 is granted its last resource request
+	Thread 17 sends resource request: type = ADDITIONAL
+Master thread stores resource request of thread 17
+		Waiting threads: 17
+Master thread tries to grant pending requests
+Master thread grants resource request for thread 17
+		Waiting threads:
+	Thread 17 is granted its last resource request
+Master thread releases resources of thread 13
+		Waiting threads:
+1 threads left: 17
+Available resources: 13 18 23 19 16 26 17 29 22 18
+Master thread tries to grant pending requests
+		Waiting threads:
+	Thread 13 going to quit
+Master thread releases resources of thread 17
+		Waiting threads:
+0 threads left:
+Available resources: 15 19 23 19 18 29 18 29 22 19
+	Thread 17 going to quit
