@@ -8,6 +8,7 @@
 #define MAX_THREADS 100
 #define MAX_RESOURCES 20
 #define MAX_QUEUE_SIZE 1000
+#define SOURCE_DIR "input/"
 
 #define ADDITIONAL 0
 #define RELEASE 1
@@ -26,6 +27,12 @@ typedef struct {
     int size;
 } Queue;
 
+void initQ(Queue *q);
+bool is_empty(Queue *q);
+bool is_full(Queue *q);
+void enqueue(Queue *q, Request req);
+Request dequeue(Queue *q);
+Request peek(Queue *q);
 
 /*
 =============================================================
@@ -48,7 +55,6 @@ int max_need[MAX_THREADS][MAX_RESOURCES];
 int allocation[MAX_THREADS][MAX_RESOURCES];
 int need[MAX_THREADS][MAX_RESOURCES];
 int status[MAX_THREADS];
-
 
 /*
 =============================================================
@@ -75,25 +81,26 @@ pthread_barrier_t ackb[MAX_THREADS];
 pthread_cond_t cv[MAX_THREADS]; 
 pthread_mutex_t cmtx[MAX_THREADS]; 
 
+/*
+=============================================================
+- pending_queue = Queue to store pending requests
+- shared_request = Request shared between threads
+- active_threads = Number of active threads
+-------------------------------------------------------------
+*/
+
 Queue pending_queue;
 Request shared_request;
 int active_threads = 0;
+bool unsafe_state = false;
 
-void initialize_queue(Queue *q);
-bool is_empty(Queue *q);
-bool is_full(Queue *q);
-void enqueue(Queue *q, Request req);
-Request dequeue(Queue *q);
-Request queue_front(Queue *q);
 void print_state();
 void print_queue();
-bool check_safety();
-bool can_satisfy_request(int thread_id, int req[]);
-void process_pending_requests();
-void *thread_function(void *arg);
-void *master_function(void *arg);
+bool bankers();
+bool is_safe(int thread_id, int req[]);
+void process_request();
 
-void initialize_queue(Queue *q) {
+void initQ(Queue *q) {
     q->front = 0;
     q->rear = -1;
     q->size = 0;
@@ -123,17 +130,16 @@ Request dequeue(Queue *q) {
     return req;
 }
 
-Request queue_front(Queue *q) {
+Request peek(Queue *q) {
     if (is_empty(q)) {
         printf("Queue is empty\n");
         exit(1);
     }
     return q->requests[q->front];
 }
-// Used for debugging
+
 void print_state() {
     int i, j;
-    
     pthread_mutex_lock(&pmtx);
     
     printf("Current system state:\n");
@@ -143,17 +149,15 @@ void print_state() {
     
     printf("Allocation matrix:\n");
     for (i = 0; i < n; i++) {
-        printf("Thread %d: ", i);
+        printf("T%-2d: ", i);
         for (j = 0; j < m; j++) printf("%d ", allocation[i][j]);
         printf("\n");
     }
     
     printf("Need matrix:\n");
     for (i = 0; i < n; i++) {
-        printf("Thread %d: ", i);
-        for (j = 0; j < m; j++) {
-            printf("%d ", need[i][j]);
-        }
+        printf("T%-2d: ", i);
+        for (j = 0; j < m; j++) printf("%d ", need[i][j]);
         printf("\n");
     }
     
@@ -162,6 +166,7 @@ void print_state() {
 
 void print_queue() {
     pthread_mutex_lock(&pmtx);
+    printf("\t\tWaiting Threads: ");
     for (int i = 0; i < pending_queue.size; i++)
     {
         Request curr = pending_queue.requests[(pending_queue.front + i) % MAX_QUEUE_SIZE];
@@ -172,41 +177,30 @@ void print_queue() {
     pthread_mutex_unlock(&pmtx);
 }
 
-bool check_safety() {
+bool bankers() {
 #ifdef _DLAVOID
+    unsafe_state = false;
     int work[MAX_RESOURCES];
     bool finish[MAX_THREADS];
     int i, j, k;
     
-    // Initialize work and finish arrays
-    for (i = 0; i < m; i++) {
-        work[i] = available[i];
-    }
-    
-    for (i = 0; i < n; i++) {
-        finish[i] = false;
-    }
-    
-    // Try to find a thread that can finish
+    for (i = 0; i < m; i++) work[i] = available[i];    
+    for (i = 0; i < n; i++) finish[i] = false;
     bool found;
     do {
         found = false;
         for (i = 0; i < n; i++) {
             if (!finish[i]) {
-                // Check if this thread can finish
-                bool can_finish = true;
+                bool f = true;
                 for (j = 0; j < m; j++) {
                     if (need[i][j] > work[j]) {
-                        can_finish = false;
+                        f = false;
                         break;
                     }
                 }
                 
-                if (can_finish) {
-                    // This thread can finish, so add its resources to work
-                    for (j = 0; j < m; j++) {
-                        work[j] += allocation[i][j];
-                    }
+                if (f) {
+                    for (j = 0; j < m; j++) work[j] += allocation[i][j];
                     finish[i] = true;
                     found = true;
                 }
@@ -214,36 +208,26 @@ bool check_safety() {
         }
     } while (found);
     
-    // Check if all threads can finish
-    for (i = 0; i < n; i++) {
-        if (!finish[i]) {
-            return false; // System is not in a safe state
-        }
-    }
-    
-    return true; // System is in a safe state
+    for (i = 0; i < n; i++) if (!finish[i]) unsafe_state = true;
+    return !unsafe_state;
 #else
-    return true; // If deadlock avoidance is not enabled, always return true
+
+    return true; 
 #endif
 }
 
-// Check if a request can be satisfied
-bool can_satisfy_request(int thread_id, int req[]) 
+bool is_safe(int thread_id, int req[]) 
 {
     for (int i = 0; i < m; i++)  if (req[i] > need[thread_id][i]) return false;
     for (int i = 0; i < m; i++)  if (req[i] > available[i]) return false;
 
-    // If deadlock avoidance is enabled, check if granting the request leads to a safe state
 #ifdef _DLAVOID
-    // Try to allocate resources temporarily
     int temp_available[MAX_RESOURCES];
     int temp_allocation[MAX_THREADS][MAX_RESOURCES];
     int temp_need[MAX_THREADS][MAX_RESOURCES];
     
     int i = 0;
-    for (i = 0; i < m; i++) {
-        temp_available[i] = available[i] - req[i];
-    }
+    for (i = 0; i < m; i++) temp_available[i] = available[i] - req[i];
     
     for (i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
@@ -257,7 +241,6 @@ bool can_satisfy_request(int thread_id, int req[])
         temp_need[thread_id][i] -= req[i];
     }
     
-    // Save the current state
     int saved_available[MAX_RESOURCES];
     int saved_allocation[MAX_THREADS][MAX_RESOURCES];
     int saved_need[MAX_THREADS][MAX_RESOURCES];
@@ -276,28 +259,22 @@ bool can_satisfy_request(int thread_id, int req[])
         }
     }
     
-    // Check if the system is in a safe state
-    bool safe = check_safety();
-    
-    // Restore the state
-    for (i = 0; i < m; i++) {
-        available[i] = saved_available[i];
-    }
-    
+    bool safe = bankers();
+    for (i = 0; i < m; i++) available[i] = saved_available[i];    
     for (i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             allocation[i][j] = saved_allocation[i][j];
             need[i][j] = saved_need[i][j];
         }
     }
-    
     return safe;
+    
 #else
-    return true; // If deadlock avoidance is not enabled, just check if enough resources are available
+    return true; 
 #endif
 }
 
-void process_pending_requests() {
+void process_request() {
     int i;
     bool processed_any = true;
     pthread_mutex_lock(&pmtx);
@@ -311,10 +288,10 @@ void process_pending_requests() {
         for (i = 0; i < num_requests; i++) 
         {
             if (is_empty(&pending_queue)) break;            
-            Request req = queue_front(&pending_queue);
+            Request req = peek(&pending_queue);
             int thread_id = req.thread_id;
             
-            if (can_satisfy_request(thread_id, req.request)) {
+            if (is_safe(thread_id, req.request)) {
                 pthread_mutex_lock(&pmtx);
                 printf("Master thread grants resource request for thread %d\n", thread_id);
                 pthread_mutex_unlock(&pmtx);
@@ -329,7 +306,6 @@ void process_pending_requests() {
                 
                 dequeue(&pending_queue);
                 pthread_mutex_lock(&pmtx);
-                printf("\t\tWaiting Threads: ");
                 pthread_mutex_unlock(&pmtx);
                 print_queue();
 
@@ -341,7 +317,10 @@ void process_pending_requests() {
             } else {
                 dequeue(&pending_queue);
                 pthread_mutex_lock(&pmtx);
-                printf("\t+++ Insufficient resources to grant request of thread %d \n", thread_id);
+
+                if (unsafe_state) printf("\t+++ Unsafe to grant request of thread %d\n", thread_id);
+                else printf("\t+++ Insufficient resources to grant request of thread %d \n", thread_id);
+
                 pthread_mutex_unlock(&pmtx);
                 enqueue(&pending_queue, req);
             }
@@ -349,8 +328,7 @@ void process_pending_requests() {
     }
 }
 
-// Thread function
-void *thread_function(void *arg) {
+void *user_thread(void *arg) {
     int thread_id = *(int *)arg;
     pthread_mutex_lock(&pmtx);
     printf("\tThread %-2d born\n", thread_id);
@@ -360,7 +338,7 @@ void *thread_function(void *arg) {
     char filename[50];
     FILE *fp;
     int i, j;
-    sprintf(filename, "input/thread%02d.txt", thread_id);
+    sprintf(filename, SOURCE_DIR "thread%02d.txt", thread_id);
     fp = fopen(filename, "r");
 
     if (fp == NULL) {
@@ -396,7 +374,7 @@ void *thread_function(void *arg) {
             pthread_mutex_unlock(&rmtx);
 
             pthread_mutex_lock(&pmtx);
-            printf("Thread %d is going to quit\n", thread_id);
+            printf("\tThread %d going to quit\n", thread_id);
             pthread_mutex_unlock(&pmtx);
             break;
         } 
@@ -409,14 +387,15 @@ void *thread_function(void *arg) {
             for (i = 0; i < m; i++) if (req[i] > 0) type = ADDITIONAL;
             
             pthread_mutex_lock(&pmtx);
-            printf("\tThread %d sends resource request: type = ADDITIONAL\n", thread_id);
+            printf("\tThread %d sends resource request: ", thread_id);
+            printf("type = %s\n", (type == RELEASE ? "RELEASE" : "ADDITIONAL"));
             pthread_mutex_unlock(&pmtx);
 
             pthread_mutex_lock(&rmtx);
             shared_request.thread_id = thread_id;
             shared_request.request_type = type;
             for (i = 0; i < m; i++) shared_request.request[i] = req[i];
-            printf("Thread %d \n" , thread_id);
+            // printf("Thread %d \n" , thread_id);
 
             pthread_barrier_wait(&reqb);
             pthread_barrier_wait(&ackb[thread_id]);
@@ -442,7 +421,7 @@ void *thread_function(void *arg) {
     return NULL;
 }
 
-void *master_function(void *arg) {
+void *master_thread(void *arg) {
     int i;
     pthread_barrier_wait(&bos);
     while (active_threads > 0) 
@@ -500,11 +479,10 @@ void *master_function(void *arg) {
             enqueue(&pending_queue, req);
             pthread_mutex_lock(&pmtx);
             printf("Master thread stores resource request of thread %d\n", req.thread_id);
-            printf("\t\tWaiting Threads: ");
             pthread_mutex_unlock(&pmtx);
             print_queue();
         }
-        process_pending_requests();
+        process_request();
     }
     
     pthread_exit(NULL);
@@ -513,16 +491,16 @@ void *master_function(void *arg) {
 int main() 
 {
     int i, j;
-    pthread_t threads[MAX_THREADS];
-    pthread_t master_thread;
+    pthread_t USERS[MAX_THREADS];
+    pthread_t MASTER;
     int thread_ids[MAX_THREADS];
     FILE *fp;
     
-    initialize_queue(&pending_queue);
+    initQ(&pending_queue);
     pthread_mutex_init(&rmtx, NULL);
     pthread_mutex_init(&pmtx, NULL);
     
-    fp = fopen("input/system.txt", "r");
+    fp = fopen(SOURCE_DIR "system.txt", "r");
     if (fp == NULL) {
         printf("Error opening file input/system.txt\n");
         exit(1);
@@ -559,12 +537,11 @@ int main()
     
     for (i = 0; i < n; i++) thread_ids[i] = i;
 
-    pthread_create(&master_thread, NULL, master_function, NULL);
-    for (i = 0; i < n; i++) { pthread_create(&threads[i], NULL, thread_function, &thread_ids[i]); }
-    
-    for (i = 0; i < n; i++)  pthread_join(threads[i], NULL);
-    pthread_join(master_thread, NULL);
-    
+    pthread_create(&MASTER, NULL, master_thread, NULL);
+    for (i = 0; i < n; i++) pthread_create(&USERS[i], NULL, user_thread, &thread_ids[i]); 
+    for (i = 0; i < n; i++) pthread_join(USERS[i], NULL);
+    pthread_join(MASTER, NULL);
+
     pthread_mutex_destroy(&rmtx);
     pthread_mutex_destroy(&pmtx);
     pthread_barrier_destroy(&bos);
@@ -576,6 +553,6 @@ int main()
         pthread_mutex_destroy(&cmtx[i]);
     }
     
-    printf("All threads have finished\n");
+    printf("\tAll threads have finished\n");
     return 0;
 }

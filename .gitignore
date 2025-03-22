@@ -11,3 +11,5 @@ LA4/block
 LA4/coordinator
 LA5/leader
 LA5/follower
+LA8/resource
+LA8/resource_nodeadlock
