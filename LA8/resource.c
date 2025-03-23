@@ -1,3 +1,13 @@
+/*
+-------------------------------------------------------------
+ASSIGNMENT - 8 | Deadlock avoidance by the banker’s algorithm
+-------------------------------------------------------------
+
+Name : Tuhin Mondal
+Roll : 22CS10087
+-------------------------------------------------------------
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -276,56 +286,47 @@ bool is_safe(int thread_id, int req[])
 
 void process_request() {
     int i;
-    bool processed_any = true;
     pthread_mutex_lock(&pmtx);
     printf("Master thread tries to grant pending requests\n");
     pthread_mutex_unlock(&pmtx);
     
-    while (processed_any && !is_empty(&pending_queue)) {
-        processed_any = false;
-        int num_requests = pending_queue.size;
+    int num_requests = pending_queue.size;
+    for (i = 0; i < num_requests; i++) 
+    {
+        if (is_empty(&pending_queue)) break;            
+        Request req = peek(&pending_queue);
+        int thread_id = req.thread_id;
+        
+        if (is_safe(thread_id, req.request)) {
+            pthread_mutex_lock(&pmtx);
+            printf("Master thread grants resource request for thread %d\n", thread_id);
+            pthread_mutex_unlock(&pmtx);
 
-        for (i = 0; i < num_requests; i++) 
-        {
-            if (is_empty(&pending_queue)) break;            
-            Request req = peek(&pending_queue);
-            int thread_id = req.thread_id;
             
-            if (is_safe(thread_id, req.request)) {
-                pthread_mutex_lock(&pmtx);
-                printf("Master thread grants resource request for thread %d\n", thread_id);
-                pthread_mutex_unlock(&pmtx);
-
-                
-                for (int j = 0; j < m; j++) 
-                {
-                    available[j] -= req.request[j];
-                    allocation[thread_id][j] += req.request[j];
-                    need[thread_id][j] -= req.request[j];
-                }
-                
-                dequeue(&pending_queue);
-                pthread_mutex_lock(&pmtx);
-                pthread_mutex_unlock(&pmtx);
-                print_queue();
-
-                status[thread_id] = 0;
-                pthread_mutex_lock(&cmtx[thread_id]);
-                pthread_cond_signal(&cv[thread_id]);
-                pthread_mutex_unlock(&cmtx[thread_id]);
-                processed_any = true;
-            } else {
-                dequeue(&pending_queue);
-                pthread_mutex_lock(&pmtx);
-
-                if (unsafe_state) printf("\t+++ Unsafe to grant request of thread %d\n", thread_id);
-                else printf("\t+++ Insufficient resources to grant request of thread %d \n", thread_id);
-
-                pthread_mutex_unlock(&pmtx);
-                enqueue(&pending_queue, req);
+            for (int j = 0; j < m; j++) 
+            {
+                available[j] -= req.request[j];
+                allocation[thread_id][j] += req.request[j];
+                need[thread_id][j] -= req.request[j];
             }
+            
+            dequeue(&pending_queue);
+            status[thread_id] = 0;
+            pthread_mutex_lock(&cmtx[thread_id]);
+            pthread_cond_signal(&cv[thread_id]);
+            pthread_mutex_unlock(&cmtx[thread_id]);
+        } else {
+            dequeue(&pending_queue);
+            pthread_mutex_lock(&pmtx);
+
+            if (unsafe_state) printf("\t+++ Unsafe to grant request of thread %d\n", thread_id);
+            else printf("\t+++ Insufficient resources to grant request of thread %d \n", thread_id);
+
+            pthread_mutex_unlock(&pmtx);
+            enqueue(&pending_queue, req);
         }
     }
+    print_queue();
 }
 
 void *user_thread(void *arg) {
@@ -337,7 +338,7 @@ void *user_thread(void *arg) {
     
     char filename[50];
     FILE *fp;
-    int i, j;
+    int i;
     sprintf(filename, SOURCE_DIR "thread%02d.txt", thread_id);
     fp = fopen(filename, "r");
 
@@ -440,6 +441,11 @@ void *master_thread(void *arg) {
                     need[thread_id][i] = 0;
                 }
                 active_threads--;
+                pthread_mutex_lock(&pmtx);
+                printf("Master thread releases resources of thread %d\n", thread_id);
+                pthread_mutex_unlock(&pmtx);
+                print_queue();
+
                 pthread_mutex_lock(&pmtx);
                 printf("%d threads left: ", active_threads);
                 for (int j = 0; j < n; j++) {
@@ -554,5 +560,6 @@ int main()
     }
     
     printf("\tAll threads have finished\n");
+    sleep(1); // For file output to finish
     return 0;
 }
