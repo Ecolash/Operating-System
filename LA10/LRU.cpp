@@ -5,6 +5,12 @@ ASSIGNMENT - 10 | Demand Paging with Page Replacement
 Name   : Tuhin Mondal
 Roll No: 22CS10087
 -------------------------------------------------------------
+NOTE: 
+
+1) This code is a simulation of a demand paging system
+2) Replacement algorithm used: LRU Approximation 
+3) Change input file name if required in FILE_NAME
+-------------------------------------------------------------
 */
 
 #include <iostream>
