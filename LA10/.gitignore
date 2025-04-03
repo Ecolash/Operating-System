@@ -1,4 +1,7 @@
 runsearch
+./runsearch
+runsearch.exe
+runsearch.out
 search.txt
 output.txt
 verbose.txt

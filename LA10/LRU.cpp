@@ -197,9 +197,8 @@ void fetch_free_frame(Process* p, int page_index, int process_number)
     for (int i = 0; i < TOTAL_FRAMES; i++) {
         if (FFLIST[i].is_free && FFLIST[i].pid == process_number) {
             #ifdef VERBOSE 
-                cout << "\t\tAttempt 3: Free frame " << i;
-                cout << " originally owned by process " << process_number;
-                cout << " found, reallocating for page " << page_index << endl;
+                cout << "\t\tAttempt 3: Own page " << FFLIST[i].page_number;
+                cout << " found in free frame " << i << endl;
             #endif
             FFLIST[i].is_free = 0;
             FFLIST[i].pid = process_number;
@@ -222,7 +221,8 @@ void fetch_free_frame(Process* p, int page_index, int process_number)
         if (FFLIST[i].is_free) {
             #ifdef VERBOSE 
                 cout << "\t\tAttempt 4: Free frame " << i;
-                cout << " (random selection) allocated for page " << page_index << endl;
+                cout << " owned by Process " << FFLIST[i].pid;
+                cout << " chosen" << endl;
             #endif
             FFLIST[i].is_free = 0;
             FFLIST[i].pid = process_number;
