@@ -360,14 +360,18 @@ int main()
     double attempt_percent[4];
     double fault_percent = 0;
     double replacement_percent = 0;
-    double 
 
     cout << fixed;
-    cout << setw(4)  << "PID" << endl;
-    cout << setw(10) << "Accesses" << endl;
-    cout << setw(7)  << "Faults" << endl;
-    cout << setw(13) << "Replacements" << endl;
-    cout << setw(10) << "Attempts" << endl;
+    cout << right;
+    cout << "\033[1m"; 
+    cout << string(115, '-') << endl;
+    cout << setw(4)  << "PID";
+    cout << setw(14) << "Accesses";
+    cout << setw(14) << "Faults";
+    cout << setw(22) << "Replacements";
+    cout << setw(30) << "Attempts" << endl;
+    cout << string(115, '-') << endl;
+    cout << "\033[0m"; 
 
     for (int i = 0; i < n; i++) 
     {
