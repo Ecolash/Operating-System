@@ -203,6 +203,10 @@ bool replace_LRU(Process* p, int requested_page, int process_number) {
                 }
             }
         }
+        if (victim == -1) {
+            cerr << "[-] No valid page found for replacement" << endl;
+            return false;
+        }
     }
     
     #ifdef VERBOSE
