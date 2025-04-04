@@ -9,7 +9,7 @@ int main ( int argc, char *argv[] )
 
    srand((unsigned int)time(NULL));
 
-   n = (argc == 1) ? 200 : atoi(argv[1]);
+   n = (argc == 1) ? 400 : atoi(argv[1]);
    m = (argc <= 2) ? 100 : atoi(argv[2]);
 
    fp = (FILE *)fopen("search.txt", "w");
