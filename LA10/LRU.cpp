@@ -40,13 +40,37 @@ inline void set_reference(unsigned short &x)      { x |= (1 << 14); }
 inline void unset_reference(unsigned short &x)    { x &= ~(1 << 14); }
 inline bool check_reference(unsigned short x)     { return (x & (1 << 14)) != 0; }
 
+/*
+FREE FRAME LIST
+
+- Each frame in the free-frame list is represented by a structure.
+- Each frame has the following attributes:
+    - is_free: 1 if the frame is free, 0 otherwise
+    - pid: process ID of the last owner of the frame
+    - page_number: page number of the last owner of the frame
+*/
+
 struct Frame {
     int is_free;
     int pid;
     int page_number;
+
+    Frame() : is_free(1), pid(-1), page_number(-1) {}
 };
 
-struct PAGE_ENTRY {
+/*
+PAGE TABLE ENTRY
+
+- Entry (16 bits) at positions 0-15
+    - Valid bit (1 bit) at position 15
+    - Reference bit (1 bit) at position 14
+    - Frame number (14 bits) at positions 0-13
+
+- History (16 bits) at positions 0-15
+- History is used for LRU approximation
+*/
+
+struct PAGE_TABLE_ENTRY {
     unsigned short entry;
     unsigned short history;
 };
@@ -54,7 +78,7 @@ struct PAGE_ENTRY {
 struct Process {
     int size;
     int search_indices[MAX_SEARCHES];
-    PAGE_ENTRY page_table[PAGES_PER_PROCESS];
+    PAGE_TABLE_ENTRY page_table[PAGES_PER_PROCESS];
     int searches_done;
     bool is_active;
 
@@ -290,7 +314,9 @@ void REMOVE_PROCESS(int process_number) {
         if (check_valid(p->page_table[i].entry)) {
             int frame = p->page_table[i].entry & 0x3FFF;
             if (frame < 0 || frame >= TOTAL_FRAMES)
-                throw out_of_range("Frame index out of range");
+            {
+                
+            }
             unset_valid(p->page_table[i].entry);
             
             FFLIST[frame].is_free = 1;
