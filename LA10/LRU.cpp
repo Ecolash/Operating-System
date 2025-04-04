@@ -194,8 +194,15 @@ bool replace_LRU(Process* p, int requested_page, int process_number) {
         }
     }
     if (victim == -1) {
-        cerr << "[-] No valid page found for replacement" << endl;
-        exit(EXIT_FAILURE);
+        for (int j = ESSENTIAL_PAGES; j < PAGES_PER_PROCESS; j++) {
+            if (check_valid(p->PT[j].entry)) {
+                if (p->PT[j].history == minHist)
+                {
+                    minHist = p->PT[j].history;
+                    victim = j;
+                }
+            }
+        }
     }
     
     #ifdef VERBOSE
