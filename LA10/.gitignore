@@ -1,7 +1,7 @@
 runsearch
+gensearch
 ./runsearch
-runsearch.exe
-runsearch.out
+./gensearch
 search.txt
 output.txt
 verbose.txt

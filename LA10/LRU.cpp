@@ -1,24 +1,26 @@
 /*
--------------------------------------------------------------
+-------------------------------------------------------------------------------
 ASSIGNMENT - 10 | Demand Paging with Page Replacement
--------------------------------------------------------------
-Name   : Tuhin Mondal
+-------------------------------------------------------------------------------
+Name: Tuhin Mondal
 Roll No: 22CS10087
--------------------------------------------------------------
-NOTE: 
+-------------------------------------------------------------------------------
+NOTE:
 
 1) This code is a simulation of a demand paging system
-2) Replacement algorithm used: LRU Approximation 
+2) Replacement algorithm used: LRU Approximation
 3) Change input file name if required in FILE_NAME
--------------------------------------------------------------
+4) Ouput varies slightly in each run due to randomization (in attempt 4)
+5) Run with -DVERBOSE to see detailed output
+-------------------------------------------------------------------------------
 */
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <queue>
-#include <iomanip>
-#include <stdexcept>
 
 using namespace std;
 
@@ -36,30 +38,32 @@ inline void set_valid(unsigned short &x)      {  x |= (1 << 15); }
 inline void unset_valid(unsigned short &x)    {  x &= ~(1 << 15);  }
 inline bool check_valid(unsigned short x)     { return (x & (1 << 15)) != 0; }
 
-inline void set_reference(unsigned short &x)      { x |= (1 << 14); }
-inline void unset_reference(unsigned short &x)    { x &= ~(1 << 14); }
-inline bool check_reference(unsigned short x)     { return (x & (1 << 14)) != 0; }
+inline void set_ref(unsigned short &x)      { x |= (1 << 14); }
+inline void unset_ref(unsigned short &x)    { x &= ~(1 << 14); }
+inline bool check_ref(unsigned short x)     { return (x & (1 << 14)) != 0; }
 
 /*
 FREE FRAME LIST
+FRAME STRUCTURE DESCRIPTION:
 
 - Each frame in the free-frame list is represented by a structure.
 - Each frame has the following attributes:
-    - is_free: 1 if the frame is free, 0 otherwise
-    - pid: process ID of the last owner of the frame
-    - page_number: page number of the last owner of the frame
+    - frame: the frame number
+    - last_pid: process ID of the last owner of the frame
+    - last_page: page number of the last owner of the frame
 */
 
 struct Frame {
-    int is_free;
-    int pid;
-    int page_number;
+    int frame;
+    int last_pid;
+    int last_page;
 
-    Frame() : is_free(1), pid(-1), page_number(-1) {}
+    Frame() : frame(-1), last_pid(-1), last_page(-1) {}
 };
 
 /*
 PAGE TABLE ENTRY
+DESCRIPTION:
 
 - Entry (16 bits) at positions 0-15
     - Valid bit (1 bit) at position 15
@@ -75,25 +79,52 @@ struct PAGE_TABLE_ENTRY {
     unsigned short history;
 };
 
+/*
+PROCESS STRUCTURE
+DESCRIPTION:    
+
+- Each process has a page table with the following attributes:
+
+    - size: number of pages in the process
+    - search_indices: indices of pages to be searched
+    - PT: array of page table entries
+    - searches_done: number of searches done
+    - is_active: flag indicating if the process is active
+*/
+
 struct Process {
     int size;
     int search_indices[MAX_SEARCHES];
-    PAGE_TABLE_ENTRY page_table[PAGES_PER_PROCESS];
+    PAGE_TABLE_ENTRY PT[PAGES_PER_PROCESS];
     int searches_done;
     bool is_active;
 
     Process() : size(0), searches_done(0), is_active(false) {
         for (int i = 0; i < PAGES_PER_PROCESS; i++) {
-            page_table[i].entry = 0;
-            page_table[i].history = 0;
+            PT[i].entry = 0;
+            PT[i].history = 0;
         }
     }
 };
 
 int n, m;
-int NFF;
+int NFF = 0;
+
+/*
+NECESSARY STRUCTURES:
+
+- FFLIST: Free Frame List
+- processes: Array of processes
+- READY_Q: Queue of processes ready to be executed
+- page_faults: Array to store page faults for each process
+- page_accesses: Array to store page accesses for each process
+- page_replacements: Array to store page replacements for each process
+- attempts: 2D array to store attempts for each process
+*/
+
 Process* processes = NULL;
-Frame FFLIST[TOTAL_FRAMES];
+queue<Frame> FFLIST;
+vector<Frame> temp; 
 queue<int> READY_Q;
 
 int page_faults[MAX_PROCESSES];
@@ -112,79 +143,94 @@ double percentage(int part, int total) {
     return (x * 100.00) / y;
 }
 
-void update_page_history(Process* p) {
-    for (int i = ESSENTIAL_PAGES; i < PAGES_PER_PROCESS; i++) {
-        if (check_valid(p->page_table[i].entry)) 
-        {
-            p->page_table[i].history >>= 1; // Right shift history
-            if (check_reference(p->page_table[i].entry)) 
-            {
-                p->page_table[i].history |= (1 << 15);
-                unset_reference(p->page_table[i].entry);
-            }
-        }
+void _INIT_FFLIST_() {
+    while (!FFLIST.empty()) FFLIST.pop();
+    
+    for (int i = 0; i < TOTAL_FRAMES; i++) {
+        Frame free_frame;
+        free_frame.frame = i;
+        free_frame.last_pid = -1;
+        free_frame.last_page = -1;
+        FFLIST.push(free_frame);
     }
+    NFF = TOTAL_FRAMES;
 }
 
-void init_essential_pages(Process* p, int process_number) {
-    for (int j = 0; j < ESSENTIAL_PAGES; j++) {
-        int frame = TOTAL_FRAMES - NFF;
-        if (frame < 0 || frame >= TOTAL_FRAMES) {
-            cerr << "Frame index : " << frame << " out of range" << endl;
-            exit(EXIT_FAILURE);
-        }
-        p->page_table[j].entry = frame;
-        p->page_table[j].history = 0xFFFF;
-        set_valid(p->page_table[j].entry);
-        FFLIST[frame].pid = process_number;
-        FFLIST[frame].page_number = j;
-        FFLIST[frame].is_free = 0;
+bool get_free_frame(Frame &f) {
+    if (NFF > NFFMIN) {
+        f = FFLIST.front();
+        FFLIST.pop();
         NFF--;
+        return true;
+    }
+    return false;
+}
+
+void update_history(Process* p) {
+    for (int i = ESSENTIAL_PAGES; i < PAGES_PER_PROCESS; i++) {
+        if (check_valid(p->PT[i].entry)) 
+        {
+            unsigned short entry = p->PT[i].entry;
+            bool flag = check_ref(entry);
+            unsigned short ref = flag ? 1 : 0;
+
+            unsigned short history = p->PT[i].history;
+            p->PT[i].history = (history >> 1) | (ref << 15);
+            unset_ref(p->PT[i].entry);
+        }
     }
 }
 
-int replace_LRU(Process* p) {
-    int min_history = 0xFFFF;
-    int min_index = -1;
-    for (int i = 10; i < PAGES_PER_PROCESS; i++) {
-        if (check_valid(p->page_table[i].entry)) 
-        {
-            int history = p->page_table[i].history;
-            if (history < min_history) 
-            {
-                // cout << "Page " << i << " history: " << history << endl;
-                min_history = history;
-                min_index = i;
+
+bool replace_LRU(Process* p, int requested_page, int process_number) {
+    int victim = -1;
+    unsigned short minHist = 0xFFFF;
+    for (int j = ESSENTIAL_PAGES; j < PAGES_PER_PROCESS; j++) {
+        if (check_valid(p->PT[j].entry)) {
+            if (p->PT[j].history < minHist) {
+                minHist = p->PT[j].history;
+                victim = j;
             }
         }
     }
-    if (min_index == -1) {
+    if (victim == -1) {
         cerr << "[-] No valid page found for replacement" << endl;
         exit(EXIT_FAILURE);
     }
-    return min_index;
-}
+    
+    #ifdef VERBOSE
+    cout << "\tFault on Page " << requested_page 
+         << ": To replace Page " << victim 
+         << " at Frame " << (p->PT[victim].entry & 0x3FFF)
+         << " [history = " << minHist << "]" << endl;
+    #endif
+    
+    // Copy queue to vector for searching
+    temp.clear();
+    while (!FFLIST.empty()) {
+        temp.push_back(FFLIST.front());
+        FFLIST.pop();
+    }
+    
+    Frame FREE_FRAME;
+    int FRAME_NO = -1;
 
-void fetch_free_frame(Process* p, int page_index, int process_number) 
-{
     /* ATTEMPT 1:
 
     - We need to find a free frame f that was recently used by process_number.
-    - Check if there is a free frame f whose last owner is process_number 
-    - Check if the page number stored in f is exactly the page_index. 
+    - Check if there is a free frame f whose last owner is process_number
+    - Check if the page number stored in f is exactly the page_index.
     - This indicates that page p of process_number was replaced recently (reload the page without disk I/O)
     */
-
-    for (int i = 0; i < TOTAL_FRAMES; i++) {
-        if (FFLIST[i].is_free && FFLIST[i].pid == process_number && FFLIST[i].page_number == page_index) {
-            #ifdef VERBOSE 
-            cout << "\t\tAttempt 1: Page found in free frame " << i << endl;
-            #endif
-            FFLIST[i].is_free = 0;
-            p->page_table[page_index].entry = i;
-            set_valid(p->page_table[page_index].entry);
+    for (int i = 0; i < (int)temp.size(); i++) {
+        if (temp[i].last_pid == process_number && temp[i].last_page == requested_page) {
+            FRAME_NO = i;
             attempts[process_number][0]++;
-            return;
+            #ifdef VERBOSE
+            cout << "\t\tAttempt 1: ";
+            cout << "Page found in free frame " << temp[i].frame << endl;
+            #endif
+            break;
         }
     }
 
@@ -194,43 +240,40 @@ void fetch_free_frame(Process* p, int page_index, int process_number)
     - This frame has not been recently allocated to any process.
     - If such a frame is found, assign it to page p.
     */
-
-    for (int i = TOTAL_FRAMES - 1; i >= 0; i--) {
-        if (FFLIST[i].is_free && FFLIST[i].pid == -1) {
-            #ifdef VERBOSE 
-                cout << "\t\tAttempt 2: Free frame " << i << " owned by no process found" << endl;
-            #endif
-            FFLIST[i].is_free = 0;
-            FFLIST[i].pid = process_number;
-            FFLIST[i].page_number = page_index;
-            p->page_table[page_index].entry = i;
-            set_valid(p->page_table[page_index].entry);
-            attempts[process_number][1]++;
-            return;
+    if (FRAME_NO == -1) {
+        for (int i = temp.size() - 1; i >= 0; i--) {
+            if (temp[i].last_pid == -1) {
+                FRAME_NO = i;
+                attempts[process_number][1]++;
+                #ifdef VERBOSE
+                cout << "\t\tAttempt 2: ";
+                cout << "Free frame " << temp[i].frame;
+                cout << " owned by no process found" << endl;
+                #endif
+                break;
+            }
         }
     }
 
     /* ATTEMPT 3:
 
-    - If Attempts 1 and 2 are unsuccessful
+     - If Attempts 1 and 2 are unsuccessful
     - Look for any free frame f whose last owner was process_number, regardless of the page number in f.
     - This might indicate that the process previously used this frame for a different page.
     - If found, allocate f to page p.
     */
-
-    for (int i = 0; i < TOTAL_FRAMES; i++) {
-        if (FFLIST[i].is_free && FFLIST[i].pid == process_number) {
-            #ifdef VERBOSE 
-                cout << "\t\tAttempt 3: Own page " << FFLIST[i].page_number;
-                cout << " found in free frame " << i << endl;
-            #endif
-            FFLIST[i].is_free = 0;
-            FFLIST[i].pid = process_number;
-            FFLIST[i].page_number = page_index;
-            p->page_table[page_index].entry = i;
-            set_valid(p->page_table[page_index].entry);
-            attempts[process_number][2]++;
-            return;
+    if (FRAME_NO == -1) {
+        for (int i = temp.size() - 1; i >= 0; i--) {
+            if (temp[i].last_pid == process_number) {
+                FRAME_NO = i;
+                attempts[process_number][2]++;
+                #ifdef VERBOSE
+                cout << "\t\tAttempt 3: ";
+                cout << "Own page " << temp[i].last_page; 
+                cout << " found in free frame " << temp[i].frame << endl;
+                #endif
+                break;
+            }
         }
     }
 
@@ -240,69 +283,70 @@ void fetch_free_frame(Process* p, int page_index, int process_number)
     - It will simply select any random free frame from FFLIST and allocate it to page p.
     - This approach ensures that the simulation continues even if preferred frames are unavailable.
     */
-
-    for (int i = TOTAL_FRAMES - 1; i >= 0; i--) {
-        if (FFLIST[i].is_free) {
-            #ifdef VERBOSE 
-                cout << "\t\tAttempt 4: Free frame " << i;
-                cout << " owned by Process " << FFLIST[i].pid;
-                cout << " chosen" << endl;
-            #endif
-            FFLIST[i].is_free = 0;
-            FFLIST[i].pid = process_number;
-            FFLIST[i].page_number = page_index;
-            p->page_table[page_index].entry = i;
-            set_valid(p->page_table[page_index].entry);
-            attempts[process_number][3]++;
-            return;
-        }
+    
+    if (FRAME_NO == -1) {
+        FRAME_NO = rand() % temp.size();
+        attempts[process_number][3]++;
+        #ifdef VERBOSE
+        cout << "\t\tAttempt 4: ";
+        cout << "Free frame " << temp[FRAME_NO].frame; 
+        cout << " owned by Process " << temp[FRAME_NO].last_pid << " chosen" << endl;
+        #endif
     }
+    
+    // Save the chosen free frame
+    FREE_FRAME = temp[FRAME_NO];
+    int FRAME_POS = p->PT[victim].entry & 0x3FFF;
+    
+    // Create a new free frame entry for the victim
+    Frame freed;
+    freed.frame = FRAME_POS;
+    freed.last_pid = process_number;
+    freed.last_page = victim;
+    
+    // Put chosen frame back in queue (replacing it with victim frame)
+    temp[FRAME_NO] = freed;
+    for (int i = 0; i < (int)temp.size(); i++) FFLIST.push(temp[i]);
+
+    p->PT[requested_page].entry = (FREE_FRAME.frame & 0x3FFF);
+    set_valid(p->PT[requested_page].entry);
+    set_ref(p->PT[requested_page].entry);
+    p->PT[requested_page].history = 0xFFFF;
+    
+    // Invalidate victim page
+    unset_valid(p->PT[victim].entry);
+    p->PT[victim].history = 0;
+    
+    page_replacements[process_number]++;
+    return true;
 }
 
 void load_page(Process* p, int page_index, int process_number) {
     page_faults[process_number]++;
     
     if (NFF > NFFMIN) {
-        #ifdef VERBOSE
-            cout << "\tFault on page " << page_index;
-            cout << ": Free frame " << TOTAL_FRAMES - NFF << " found" << endl;
-        #endif
-        int frame = TOTAL_FRAMES - NFF;
-        if (frame < 0 || frame >= TOTAL_FRAMES)
-        {
-            cerr << "Frame index : " << frame << " out of range" << endl;
+        Frame free_frame;
+        if (get_free_frame(free_frame)) {
+            #ifdef VERBOSE
+            cout << "\tFault on Page " << page_index;
+            cout << ": Free frame " << free_frame.frame;
+            cout << " found" << endl;
+            #endif
+            free_frame.last_pid = process_number;
+            free_frame.last_page = page_index;
+            p->PT[page_index].entry = free_frame.frame;
+            set_valid(p->PT[page_index].entry);
+            set_ref(p->PT[page_index].entry);
+            p->PT[page_index].history = 0xFFFF;
+        } else {
+            cerr << "[-] Can't allocate page" << endl;
             exit(EXIT_FAILURE);
         }
-
-        p->page_table[page_index].entry = frame;
-        set_valid(p->page_table[page_index].entry);
-        FFLIST[frame].pid = process_number;
-        FFLIST[frame].page_number = page_index;
-        FFLIST[frame].is_free = 0;
-        NFF--;
     } else {
-        page_replacements[process_number]++;
-        int victim_page = replace_LRU(p);
-
-        int frame = p->page_table[victim_page].entry;
-        frame &= 0x3FFF; // Clear the valid bit
-        if (frame < 0 || frame >= TOTAL_FRAMES)
-        {
-            cerr << "Frame index : " << frame << " out of range" << endl;
+        if (!replace_LRU(p, page_index, process_number)) {
+            cerr << "[-] Page replacement error for process " << process_number << endl;
             exit(EXIT_FAILURE);
         }
-        
-        #ifdef VERBOSE
-            int history = p->page_table[victim_page].history;
-            cout << "\tFault on page " << page_index;
-            cout << ": To replace Page " << victim_page << " at Frame " << frame;
-            cout << " [history = " << history << "]" << endl;
-        #endif
-        
-        fetch_free_frame(p, page_index, process_number);
-        p->page_table[victim_page].entry = 0;
-        p->page_table[victim_page].history = 0;
-        FFLIST[frame].is_free = 1;
     }
 }
 
@@ -311,20 +355,20 @@ void REMOVE_PROCESS(int process_number) {
     p->is_active = false;
     
     for (int i = 0; i < PAGES_PER_PROCESS; i++) {
-        if (check_valid(p->page_table[i].entry)) {
-            int frame = p->page_table[i].entry & 0x3FFF;
-            if (frame < 0 || frame >= TOTAL_FRAMES)
-            {
-                
-            }
-            unset_valid(p->page_table[i].entry);
+        if (check_valid(p->PT[i].entry)) {
+            int frame = p->PT[i].entry & 0x3FFF;
+            unset_valid(p->PT[i].entry);
             
-            FFLIST[frame].is_free = 1;
-            FFLIST[frame].pid = -1;
-            FFLIST[frame].page_number = -1;
+            // Add frame back to FFLIST with no owner
+            Frame free_frame;
+            free_frame.frame = frame;
+            free_frame.last_pid = -1;
+            free_frame.last_page = -1;
+            FFLIST.push(free_frame);
             NFF++;
         }
     }
+    // cout << "++++ NFF = " << NFF << endl;
 }
 
 bool search(int process_number) {
@@ -335,20 +379,19 @@ bool search(int process_number) {
     
     while (L < R) {
         int M = L + ((R - L) >> 1);
-        int page_index = 10 + M / 1024;
+        int page_index = ESSENTIAL_PAGES + M / 1024;
         
-        if (!check_valid(p->page_table[page_index].entry)) {
+        if (!check_valid(p->PT[page_index].entry)) {
             load_page(p, page_index, process_number);
-            p->page_table[page_index].history = 0xFFFF;
+        } else {
+            page_accesses[process_number]++;
+            set_ref(p->PT[page_index].entry);
+            
+            if (key <= M) R = M;
+            else L = M + 1;
         }
-        
-        page_accesses[process_number]++;
-        set_reference(p->page_table[page_index].entry);
-        
-        if (key <= M) R = M;
-        else L = M + 1;
     }
-    update_page_history(p);
+    update_history(p);
     p->searches_done++;
     return true;
 }
@@ -357,8 +400,7 @@ void run_simulation() {
     while (true) {
         bool finished = true;
         for (int i = 0; i < n; i++) {
-            int searches_done = processes[i].searches_done;
-            if (processes[i].is_active && searches_done < m) {
+            if (processes[i].is_active && processes[i].searches_done < m) {
                 finished = false;
                 break;
             }
@@ -371,8 +413,8 @@ void run_simulation() {
         
         if (p->is_active && p->searches_done < m) {
             #ifdef VERBOSE
-                cout << "+++ Process " << curr_process;
-                cout << ": Search " << p->searches_done + 1 << endl;
+            cout << "+++ Process " << curr_process;
+            cout << ": Search " << p->searches_done + 1 << endl;
             #endif
             
             if (search(curr_process)) {
@@ -383,31 +425,19 @@ void run_simulation() {
     }
 }
 
+int main() {
+    srand(time(NULL));
+    _INIT_FFLIST_();
 
-int main() 
-{
-    NFF = TOTAL_FRAMES;
-    for (int i = 0; i < TOTAL_FRAMES; i++)
-    {
-        FFLIST[i].is_free = 1;
-        FFLIST[i].pid = -1;
-        FFLIST[i].page_number = -1;
-    }
-    for (int i = 0; i < MAX_PROCESSES; i++)
-    {
+    for (int i = 0; i < MAX_PROCESSES; i++) {
         page_faults[i] = 0;
         page_accesses[i] = 0;
         page_replacements[i] = 0;
-
-        attempts[i][0] = 0; // ATTEMPT TYPE 1
-        attempts[i][1] = 0; // ATTEMPT TYPE 2
-        attempts[i][2] = 0; // ATTEMPT TYPE 3
-        attempts[i][3] = 0; // ATTEMPT TYPE 4
+        for (int j = 0; j < 4; j++) attempts[i][j] = 0;
     }
 
     ifstream file(FILE_NAME);
-    if (!file.is_open())
-    {
+    if (!file.is_open()) {
         cerr << "Error opening input file: " << FILE_NAME << endl;
         exit(EXIT_FAILURE);
     }
@@ -417,82 +447,77 @@ int main()
     if (m > MAX_SEARCHES)  { cerr << "[-] Number of searches exceeds limit\n";  exit(EXIT_FAILURE); }
     processes = new Process[n];
 
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         Process *p = &processes[i];
         p->is_active = true;
         p->searches_done = 0;
 
-        int size;
-        file >> size;
-        p->size = size;
-
+        file >> p->size;
         for (int j = 0; j < m; j++) file >> p->search_indices[j];
         for (int j = 0; j < ESSENTIAL_PAGES; j++)
         {
-            int frame = TOTAL_FRAMES - NFF;
-            if (frame < 0 || frame >= TOTAL_FRAMES)
+            Frame free_frame;
+            if (get_free_frame(free_frame))
             {
-                cerr << "Frame index out of range" << endl;
+                int fn = free_frame.frame;
+                PAGE_TABLE_ENTRY &pte = p->PT[j];
+                free_frame.last_pid = i;
+                free_frame.last_page = j;
+                pte.entry = fn;
+
+                set_valid(pte.entry);
+                set_ref(pte.entry);
+                pte.history = 0xFFFF;
+            }
+            else
+            {
+                cerr << "[-] Not enough free frames during initialization" << endl;
                 exit(EXIT_FAILURE);
             }
-            p->page_table[j].entry = frame;
-            p->page_table[j].history = 0xFFFF;
-            set_valid(p->page_table[j].entry);
-
-            FFLIST[frame].pid = i;
-            FFLIST[frame].page_number = j;
-            FFLIST[frame].is_free = false;
-            NFF--;
         }
         READY_Q.push(i);
     }
-
     file.close();
     cout << "+++ Simulation data read from file\n";
 
-    run_simulation();
+    run_simulation(); // -- Main simulation loop
+    cout << "+++ Simulation completed\n";
 
     cout << "+++ Page access summary\n";
     int access_cnt = 0;
     int faults_cnt = 0;
     int replacements = 0;
     int attempt_cnt[4] = {0};
-    
+
     double attempt_percent[4];
     double fault_percent = 0;
     double replacement_percent = 0;
 
-    cout << fixed;
-    cout << right;
-    // cout << "\033[1m"; 
+    cout << fixed << right;
     cout << string(125, '-') << endl;
-    cout << setw(5)  << "PID" << " |";
-    cout << setw(10) << "Accesses" << " |";
-    cout << setw(12)  << "Faults" << "      |";
-    cout << setw(16) << "Replacements" << "   |";
-    cout << setw(32) << "Attempts" << endl;
+    cout << setw(5)  << "PID" << " |"
+         << setw(10) << "Accesses" << " |"
+         << setw(12)  << "Faults" << "      |"
+         << setw(16) << "Replacements" << "   |"
+         << setw(32) << "Attempts" << endl;
     cout << string(125, '-') << endl;
-    // cout << "\033[0m"; 
 
-    for (int i = 0; i < n; i++) 
-    {
+    for (int i = 0; i < n; i++) {
         access_cnt   += page_accesses[i];
         faults_cnt   += page_faults[i];
         replacements += page_replacements[i];
-        for (int j = 0; j < 4; j++) attempt_cnt[j] += attempts[i][j];
+        for (int j = 0; j < 4; j++) { attempt_cnt[j] += attempts[i][j]; }
 
         fault_percent = percentage(page_faults[i], page_accesses[i]);
         replacement_percent = percentage(page_replacements[i], page_accesses[i]);
         
-        int total_cnt = attempts[i][0] + attempts[i][1] + attempts[i][2] + attempts[i][3];
-        attempt_percent[0] = percentage(attempts[i][0], total_cnt);
-        attempt_percent[1] = percentage(attempts[i][1], total_cnt);
-        attempt_percent[2] = percentage(attempts[i][2], total_cnt);
-        attempt_percent[3] = percentage(attempts[i][3], total_cnt);
-        
+        int total_attempts = attempts[i][0] + attempts[i][1] + attempts[i][2] + attempts[i][3];
+        attempt_percent[0] = percentage(attempts[i][0], total_attempts);
+        attempt_percent[1] = percentage(attempts[i][1], total_attempts);
+        attempt_percent[2] = percentage(attempts[i][2], total_attempts);
+        attempt_percent[3] = percentage(attempts[i][3], total_attempts);
+
         cout.precision(2);
-        cout << fixed;
         cout << right;
         cout << setw(5) << i << " |" 
              << setw(10) << page_accesses[i] << " |"
@@ -501,8 +526,8 @@ int main()
              << setw(7) << page_replacements[i] << " (" 
              << setw(5) << replacement_percent << " %)  |";
         
-        for (int j = 0; j < 4; j++) cout << setw(indents[j]) << attempts[i][j] << ((j < 3) ? " + " : "  (");
-        for (int j = 0; j < 4; j++) cout << setw(5) << attempt_percent[j] << " %" << ((j < 3) ? " + " : ")\n");
+        for (int j = 0; j < 4; j++)  cout << setw(indents[j]) << attempts[i][j] << ((j < 3) ? " + " : "  (");
+        for (int j = 0; j < 4; j++)  cout << setw(5) << attempt_percent[j] << " %" << ((j < 3) ? " + " : ")\n");
     }
     
     double fault_pcnt = percentage(faults_cnt, access_cnt);
@@ -511,16 +536,18 @@ int main()
     for (int j = 0; j < 4; j++)  attempt_pcnt[j] = percentage(attempt_cnt[j], replacements);
     
     cout << string(125, '-') << endl;
-    cout << setw(5) << "Total" << " |";
-    cout << setw(10) << access_cnt << " |";
-    cout << setw(7)  << faults_cnt << " (";
-    cout << setw(5)  << fault_pcnt << " %) |";
-    cout << setw(7)  << replacements << " (";
-    cout << setw(5)  << replacement_pcnt << " %)  |";
+    cout << setw(5) << "Total" << " |"
+         << setw(10) << access_cnt << " |"
+         << setw(7)  << faults_cnt << " ("
+         << setw(5)  << fault_pcnt << " %) |"
+         << setw(7)  << replacements << " ("
+         << setw(5)  << replacement_pcnt << " %)  |";
 
     for (int i = 0; i < 4; i++) cout << setw(indents[i]) << attempt_cnt[i] << ((i < 3) ? " + " : "  (");
     for (int i = 0; i < 4; i++) cout << setw(5) << attempt_pcnt[i] << " %" << ((i < 3) ? " + " : ")\n");
     cout << string(125, '-') << endl;
-    cout << endl;    
+    cout << endl;
+    
+    delete[] processes;
     return 0;
 }
