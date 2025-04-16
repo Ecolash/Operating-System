@@ -47,6 +47,13 @@ Condition Variables are used when a thread must wait for a condition to become t
     pthread_cond_signal() — Wakes one waiting thread.
     pthread_cond_broadcast() — Wakes all waiting threads.
     pthread_cond_destroy() — Destroys the condition variable.
+
+🔹 Usage:
+   - pthread_cond_init(&condition_cond, NULL);              // Initialize the condition variable
+   - pthread_cond_wait(&condition_cond, &condition_mutex);  // Wait for the condition
+   - pthread_cond_signal(&condition_cond);                  // Signal one waiting thread
+   - pthread_cond_broadcast(&condition_cond);               // Signal all waiting threads
+   - pthread_cond_destroy(&condition_cond);                 // Destroy the condition variable
 */
 
 pthread_mutex_t count_mutex     = PTHREAD_MUTEX_INITIALIZER;

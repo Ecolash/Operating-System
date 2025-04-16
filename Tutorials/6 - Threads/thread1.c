@@ -11,9 +11,12 @@ Thread Management in C using pthreads
      - `start_routine`: Pointer to the function executed by the thread. The function must take a `void*` argument and return a `void*`.
      - `arg`: Pointer to the argument for the thread function. For multiple arguments, pass a pointer to a structure.
 
+   - Return value: 0 on success, or an error number on failure.
+
 2) pthread_exit
 
    - Function prototype:  void pthread_exit(void *retval);
+   - Description: Terminates the calling thread and returns a value to any joining thread.
    - Arguments: `retval`: Return value of the thread.
 
 3) Thread Termination
@@ -44,6 +47,7 @@ int main()
     /* Wait till threads are complete before main continues. */
     pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);
+    
 
     printf("Thread 1 returns: %d\n", iret1);
     printf("Thread 2 returns: %d\n", iret2);

@@ -16,7 +16,7 @@ int barber_sleeping = 1;   // Barber's status (1 = asleep, 0 = awake)
 void *barber(void *arg)
 {
     while (1)
-    {
+    {++
         pthread_mutex_lock(&mutex);
         while (waiting_customers == 0)
         {

@@ -11,8 +11,8 @@ int main()
     int rc1, rc2;
     pthread_t thread1, thread2;
 
-    rc1 = pthread_create(&thread1, NULL, &functionC, NULL);
-    rc2 = pthread_create(&thread2, NULL, &functionC, NULL);
+    rc1 = pthread_create(&thread1, NULL, functionC, NULL);
+    rc2 = pthread_create(&thread2, NULL, functionC, NULL);
     if (rc1 != 0 || rc2 != 0)
     {
         printf("Thread creation failed: %d, %d\n", rc1, rc2);
